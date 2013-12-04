@@ -272,7 +272,7 @@ mkdir /etc/zpanel/panel/etc/static/lang
 cp zpxfrtrad/etc/static/lang/* /etc/zpanel/panel/etc/static/lang
 cp zpxfrtrad/etc/static/pages/* /etc/zpanel/panel/etc/static/pages
 cat zpxfrtrad/install-fr.sql | mysql -u root -p$password
-
+rm -rf zpxfrtrad
 
 
 
