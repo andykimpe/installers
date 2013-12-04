@@ -1,6 +1,4 @@
 #! /bin/bash
- 
-#thank mutech http://www.utech.de/2013/05/shell-script-creating-a-cd-for-unattended-ubuntu-server-installations/ for the script
 #
 # General configuration
 #
