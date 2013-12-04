@@ -30,7 +30,7 @@ if [ -f $downloads/$release_image_file ] ; then
 echo "not download required"
 else
 echo "download iso"
-wget curl $release_url -o $downloads
+wget $release_url -P $downloads
 fi
 
 echo "cretate mount dir"
@@ -59,7 +59,7 @@ rm -rf $mntdir
 
 echo "download ks.cfg"
 
-curl https://raw.github.com/zpanel/installers/master/install/beta/kickstart/ubuntu_12.04_en/i386/ks.cfg -o $builddir
+curl https://raw.github.com/zpanel/installers/master/install/beta/kickstart/ubuntu_12.04_en/i386/ks.cfg -P $builddir
 
 echo "create ks.pressed"
 
