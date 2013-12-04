@@ -59,7 +59,7 @@ rm -rf $mntdir
 
 echo "download ks.cfg"
 
-curl https://raw.github.com/zpanel/installers/master/install/beta/kickstart/ubuntu_12.04_en/i386/ks.cfg -P $builddir
+wget https://raw.github.com/zpanel/installers/master/install/beta/kickstart/ubuntu_12.04_en/i386/ks.cfg -P $builddir
 
 echo "create ks.pressed"
 
