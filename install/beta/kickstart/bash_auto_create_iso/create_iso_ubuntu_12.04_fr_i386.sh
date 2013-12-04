@@ -74,7 +74,7 @@ extract_iso() {
  
 preset_language() {
     progress "Presetting language to 'en'..."
-    echo "en" >"isolinux/lang" || error 2 "Failed to write $(pwd)/isolinux/lang"
+    echo "fr" >"isolinux/lang" || error 2 "Failed to write $(pwd)/isolinux/lang"
 }
  
 create_kscfg() {
