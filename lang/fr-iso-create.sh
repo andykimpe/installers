@@ -8,3 +8,4 @@ NOTDOWNLOAD="l'iso et déjà présent sur le disque dur pas de téléchargement 
 DOWNLOAD="Téléchargement de l'image iso"
 CREATEMOUNTDIR="Création du répertoire de montage"
 MOUNTISO="Montage de l'image iso"
+CREATEBUILDDIR="Creation du répertoire de travail"
