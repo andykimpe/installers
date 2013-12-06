@@ -1,4 +1,5 @@
 #!/bin/bash
+osdetect="Detection"
 installroot="installation échoué! Pour installer, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
 upgraderoot="La mise à niveau a échoué! Pour mettre à niveau, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
 panel='Vous semblez avoir un panneau de contrôle est déjà installé sur votre serveur; Ce programme d installation\n'
