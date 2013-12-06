@@ -60,7 +60,7 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo "Detected : $OS  $VER  $BITS"
+echo -e "$osdetect : $OS  $VER  $BITS"
 #warning the last version of centos and 6.5
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ; then
   echo "Ok."
