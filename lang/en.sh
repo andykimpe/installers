@@ -5,3 +5,4 @@ panel='You appear to have a control panel already installed on your server; This
 panel=$panel'is designed to install and configure ZPanel on a clean OS installation only!\n\n'
 panel=$panel'Please re-install your OS before attempting to install using this script.'
 installsyserror="Sorry, this installer only supports the installation of ZPanel on"
+upgradesyserror="Sorry, this upgrade script only supports ZPanel on"
