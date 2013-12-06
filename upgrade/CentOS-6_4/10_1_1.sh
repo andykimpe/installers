@@ -56,7 +56,7 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo "Detected : $OS  $VER  $BITS"
+echo "$osdetect : $OS  $VER  $BITS"
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ]; then
   echo "Ok."
 else
