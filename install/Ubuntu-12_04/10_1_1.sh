@@ -61,7 +61,7 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo "Detected : $OS  $VER  $BITS"
+echo "$osdetect : $OS  $VER  $BITS"
 if [ "$OS" = "Ubuntu" ] && [ "$VER" = "12.04" ]; then
   echo "Ok."
 else
