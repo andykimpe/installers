@@ -60,7 +60,7 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ]; then
   echo "Ok."
 else
-  echo "Sorry, this upgrade script only supports ZPanel on CentOS 6.4."
+  echo "$upgradesyserror CentOS 6.4."
   exit 1;
 fi
 
