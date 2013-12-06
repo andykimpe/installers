@@ -14,3 +14,4 @@ gpl=$gpl' a été installé par vous-même SVP assurez-vous que vous avez instal
 gpl=$gpl' $OS sans paquets supplémentaires. \n\n'
 gpl=$gpl' Si vous avez sélectionné des options supplémentaires au cours de l installation de $OS \n'
 gpl=$gpl' SVP envisager de réinstaller sans ces options. \n'
+errorzpversion="Votre version de ZPanel déjà mis à jour."
