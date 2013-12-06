@@ -43,7 +43,7 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo "$upgraderoot"
+    echo -e "$upgraderoot"
     exit 1;
 fi
 
@@ -60,7 +60,7 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ]; then
   echo "Ok."
 else
-  echo "$upgradesyserror CentOS 6.4."
+  echo -e "$upgradesyserror CentOS 6.4."
   exit 1;
 fi
 
@@ -69,7 +69,7 @@ fi
 #check zpanel version
 
 if [ "$ZPX_VERSION" = "$ZPX_VERSION_ACTUAL" ] ; then
-echo "your version of ZPanel already updated"
+echo -e "$errorzpversion"
 fi
 
 
