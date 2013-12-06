@@ -41,13 +41,13 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo "$installroot"
+    echo -e "$installroot"
   exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-    echo "$panel"
+    echo -e "$panel"
     exit
 fi
 
@@ -65,7 +65,7 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ; then
   echo "Ok."
 else
-  echo "$installsyserror CentOS 6.4."
+  echo -e "$installsyserror CentOS 6.4."
   exit 1;
 fi
 
@@ -86,20 +86,9 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-echo -e "##############################################################"
-echo -e "# Welcome to the Official ZPanelX Installer for CentOS 6.4   #"
-echo -e "#                                                            #"
-echo -e "# Please make sure your VPS provider hasn't pre-installed    #"
-echo -e "# any packages required by ZPanelX.                          #"
-echo -e "#                                                            #"
-echo -e "# If you are installing on a physical machine where the OS   #"
-echo -e "# has been installed by yourself please make sure you only   #"
-echo -e "# installed CentOS with no extra packages.                   #"
-echo -e "#                                                            #"
-echo -e "# If you selected additional options during the CentOS       #"
-echo -e "# install please consider reinstalling without them.         #"
-echo -e "#                                                            #"
-echo -e "##############################################################"
+echo -e '*****************************************************************'
+echo -e "$gpl"
+echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
 fqdn=`/bin/hostname`
