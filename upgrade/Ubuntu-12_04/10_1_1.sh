@@ -43,7 +43,7 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo "Upgrade failed! To upgrade you must be logged in as 'root', please try again"
+    echo -e "$upgraderoot"
     exit 1;
 fi
 
@@ -60,12 +60,12 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "Ubuntu" ] && [ "$VER" = "12.04" ]; then
   echo "Ok."
 else
-  echo "$upgradesyserror Ubuntu 12.04."
+  echo -e "$upgradesyserror Ubuntu 12.04."
   exit 1;
 fi
 
 if [ "$ZPX_VERSION" = "$ZPX_VERSION_ACTUAL" ] ; then
-echo "$$errorzpversion"
+echo -e "$$errorzpversion"
 fi
 
 # Set custom logging methods so we create a log file in the current working directory.
