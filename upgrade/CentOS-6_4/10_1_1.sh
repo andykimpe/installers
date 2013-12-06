@@ -43,7 +43,7 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo "Upgrade failed! To upgrade you must be logged in as 'root', please try again"
+    echo "$upgraderoot"
     exit 1;
 fi
 
