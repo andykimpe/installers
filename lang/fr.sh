@@ -5,3 +5,4 @@ panel='Vous semblez avoir un panneau de contrôle est déjà installé sur votre
 panel=$panel'est conçu pour installer et configurer ZPanel sur une installation du système d exploitation propre seulement!\n\n'
 panel=$panel'SVP réinstaller votre système d exploitation avant d installer en utilisant ce script.'
 installsyserror="Désolé, cette installation ne prend en charge l'installation de ZPanel uniquement sur"
+upgradesyserror="Désolé, ce script de mise à jour de Zpanel et uniquement pour"
