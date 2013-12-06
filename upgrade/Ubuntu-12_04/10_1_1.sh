@@ -24,6 +24,24 @@ ZPX_VERSION_ACTUAL="setso --show dbversion"
 #
 
 # First we check if the user is 'root' before allowing the upgrade to commence
+
+while true; do
+echo "To continue in English, type e"
+echo "Pour continuer en Français, tapez f"
+echo "To Exit / Pour quitter : CTRL-C"
+read -e -p "? " lang
+   case $lang in
+     [e]* ) ZPXISOLANGUAGE=en && break;;
+     [f]* ) ZPXISOLANGUAGE=fr && break;;
+   esac
+done
+
+wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+chmod +x /root/$ZPXISOLANGUAGE.sh
+source $ZPXISOLANGUAGE
+
+
+
 if [ $UID -ne 0 ]; then
     echo "Upgrade failed! To upgrade you must be logged in as 'root', please try again"
     exit 1;
