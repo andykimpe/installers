@@ -1,4 +1,5 @@
 #!/bin/bash
+osdetect="Detected"
 installroot="Installed failed! To install you must be logged in as 'root', please try again"
 upgraderoot="Upgrade failed! To upgrade you must be logged in as 'root', please try again"
 panel='You appear to have a control panel already installed on your server; This installer\n'
