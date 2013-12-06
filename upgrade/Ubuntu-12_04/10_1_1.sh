@@ -65,7 +65,7 @@ else
 fi
 
 if [ "$ZPX_VERSION" = "$ZPX_VERSION_ACTUAL" ] ; then
-echo "your version of ZPanel already updated"
+echo "$$errorzpversion"
 fi
 
 # Set custom logging methods so we create a log file in the current working directory.
