@@ -86,23 +86,9 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-echo -e ""
-echo -e "##############################################################"
-echo -e "# Welcome to the Official ZPanelX Installer for Ubuntu       #"
-echo -e "# Server 12.04.x LTS                                         #"
-echo -e "#                                                            #"
-echo -e "# Please make sure your VPS provider hasn't pre-installed    #"
-echo -e "# any packages required by ZPanelX.                          #"
-echo -e "#                                                            #"
-echo -e "# If you are installing on a physical machine where the OS   #"
-echo -e "# has been installed by yourself please make sure you only   #"
-echo -e "# installed Ubuntu Server with no extra packages.            #"
-echo -e "#                                                            #"
-echo -e "# If you selected additional options during the Ubuntu       #"
-echo -e "# install please consider reinstalling without them.         #"
-echo -e "#                                                            #"
-echo -e "##############################################################"
-echo -e ""
+echo -e '*****************************************************************'
+echo -e "$gpl"
+echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
 fqdn=`/bin/hostname`
