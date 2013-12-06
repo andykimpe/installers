@@ -35,7 +35,7 @@ read -e -p "? " lang
    esac
 done
 
-wget https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
 chmod +x /root/$ZPXISOLANGUAGE.sh
 source $ZPXISOLANGUAGE
 
