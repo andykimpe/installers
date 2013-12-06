@@ -42,7 +42,7 @@ source $ZPXISOLANGUAGE.sh
 
 # First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
-    echo "Install failed! To install you must be logged in as 'root', please try again."
+    echo "$installroot"
     exit 1
 fi
 
