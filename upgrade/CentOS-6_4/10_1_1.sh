@@ -4,7 +4,7 @@
 # ARCH: x32_64
 
 ZPX_VERSION=10.1.1
-ZPX_VERSION_ACTUAL="setso --show dbversion"
+ZPX_VERSION_ACTUAL="$(setso --show dbversion)"
 
 # Official ZPanel Automated Upgrade Script
 # =============================================
