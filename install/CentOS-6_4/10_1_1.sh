@@ -65,7 +65,7 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ; then
   echo "Ok."
 else
-  echo "Sorry, this installer only supports the installation of ZPanel on CentOS 6.4."
+  echo "$installsyserror CentOS 6.4."
   exit 1;
 fi
 
