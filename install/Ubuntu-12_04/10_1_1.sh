@@ -22,6 +22,24 @@ ZPX_VERSION=10.1.1
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+
+while true; do
+echo "To continue in English, type e"
+echo "Pour continuer en Français, tapez f"
+echo "To Exit / Pour quitter : CTRL-C"
+read -e -p "? " lang
+   case $lang in
+     [e]* ) ZPXISOLANGUAGE=en && break;;
+     [f]* ) ZPXISOLANGUAGE=fr && break;;
+   esac
+done
+
+wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+chmod +x /root/$ZPXISOLANGUAGE.sh
+source $ZPXISOLANGUAGE
+
+
+
 # First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
     echo "Install failed! To install you must be logged in as 'root', please try again."
