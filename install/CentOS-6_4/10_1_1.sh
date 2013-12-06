@@ -41,7 +41,7 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo "Installed failed! To install you must be logged in as 'root', please try again"
+    echo "$installroot"
   exit 1
 fi
 
