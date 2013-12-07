@@ -24,4 +24,4 @@ no="n"
 NO="N"
 CASEYN="case $on in"
 YESEND="[Oo]* ) break;;"
-NOEND="[Nn]* ) exit;
+NOEND="[Nn]* ) exit;"
