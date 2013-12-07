@@ -17,3 +17,7 @@ gpl=$gpl' If you selected additional options during the Ubuntu \n'
 gpl=$gpl' install please consider reinstalling without them. \n'
 errorzpversion="your version of ZPanel already updated"
 installcontinue="Would you like to continue (y/n)?"
+yes="y"
+YES="Y"
+no="n"
+NO="N"
