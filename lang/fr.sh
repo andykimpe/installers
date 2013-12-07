@@ -1,6 +1,10 @@
 #!/bin/bash
-OS="$(cat /root/os)"
-OS="$(cat /root/ver)"
+if [ -f /etc/centos-release ]; then
+OS="CentOs"
+  VER=$(cat /etc/centos-release | sed 's/^.*release //;s/ (Fin.*$//')
+else
+ OS=$(cat /etc/lsb-release | grep DISTRIB_ID | sed 's/^.*=//')
+  VER=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | sed 's/^.*=//')
 osdetect="Detection"
 installroot="installation échoué! Pour installer, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
 upgraderoot="La mise à niveau a échoué! Pour mettre à niveau, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
