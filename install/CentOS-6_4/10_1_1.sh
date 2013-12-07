@@ -109,7 +109,6 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 
 # Installer options
 while true; do
-	echo -e "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
 	tzselect
 	tz=`cat /etc/timezone`
 	read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn fqdn
@@ -204,7 +203,7 @@ yum -y install sudo wget vim make zip unzip git chkconfig
 
 
 # We now clone the ZPX software from GitHub
-echo "Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo "$downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
 git checkout $ZPX_VERSION
