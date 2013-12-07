@@ -111,7 +111,7 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 while true; do
 	tzselect
 	tz=`cat /etc/timezone`
-	read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn fqdn
+	read -e -p "$enterfqdn: " -i $fqdn fqdn
 	read -e -p "Enter the public (external) server IP: " -i $publicip publicip
 	read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
 	case $yn in
