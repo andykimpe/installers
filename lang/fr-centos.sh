@@ -14,6 +14,6 @@ gpl=$gpl' Si vous installez sur une machine physique où le système d exploitat
 gpl=$gpl' a été installé par vous-même SVP assurez-vous que vous avez installés \n'
 gpl=$gpl' CentOS sans paquets supplémentaires. \n\n'
 gpl=$gpl' Si vous avez sélectionné des options supplémentaires au cours de \n'
-gpl=$gpl'l installation de CentOS \n'
+gpl=$gpl' l installation de CentOS \n'
 gpl=$gpl' SVP envisager de réinstaller sans ces options. \n'
 errorzpversion="Votre version de ZPanel déjà mis à jour."
