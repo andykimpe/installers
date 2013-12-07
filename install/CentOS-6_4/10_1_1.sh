@@ -35,7 +35,7 @@ read -e -p "? " lang
    esac
 done
 
-wget -q https://raw.github.com/andykimpe/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+wget -q https://raw.github.com/andykimpe/installers/master/lang/$ZPXISOLANGUAGE-centos.sh -P /root
 chmod +x /root/$ZPXISOLANGUAGE.sh
 source $ZPXISOLANGUAGE.sh
 
