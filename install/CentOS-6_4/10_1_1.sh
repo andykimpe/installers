@@ -96,10 +96,10 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
 # Lets check that the user wants to continue first...
 while true; do
-read -e -p "$installcontinue " $yn2
-$CASEYN
-$YESEND
-$NOEND
+read -e -p "$installcontinue " yn
+case $yn in
+[Yy]* ) break;;
+[Nn]* ) exit;
 	esac
 done
 
