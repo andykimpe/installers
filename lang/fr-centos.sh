@@ -19,3 +19,4 @@ gpl=$gpl' SVP envisager de réinstaller sans ces options. \n'
 errorzpversion="Votre version de ZPanel déjà mis à jour."
 installcontinue="Voulez-vous continuer (y/n)?"
 logdebug="Génération journal d'installation et des informations de débogage ..."
+downloadzp="Téléchargement de ZPanel, SVP patientez, cela peut prendre plusieurs minutes, le programme d'installation continuera une fois que cette opération terminée!"
