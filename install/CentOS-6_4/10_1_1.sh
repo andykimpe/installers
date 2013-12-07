@@ -35,7 +35,7 @@ read -e -p "? " lang
    esac
 done
 
-wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+wget -q https://raw.github.com/andykimpe/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
 chmod +x /root/$ZPXISOLANGUAGE.sh
 source $ZPXISOLANGUAGE.sh
 
@@ -56,6 +56,8 @@ BITS=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 if [ -f /etc/centos-release ]; then
   OS="CentOs"
   VER=$(cat /etc/centos-release | sed 's/^.*release //;s/ (Fin.*$//')
+echo CentOS > /root/os
+echo $VER > /root/ver
 else
   OS=$(uname -s)
   VER=$(uname -r)
