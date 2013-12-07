@@ -17,3 +17,4 @@ gpl=$gpl' Si vous avez sélectionné des options supplémentaires au cours de \n
 gpl=$gpl' l installation de CentOS \n'
 gpl=$gpl' SVP envisager de réinstaller sans ces options. \n'
 errorzpversion="Votre version de ZPanel déjà mis à jour."
+installcontinue="Voulez-vous continuer (o/n)?"
