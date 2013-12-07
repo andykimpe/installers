@@ -190,7 +190,7 @@ chkconfig iptables off
 
 # Start log creation.
 echo -e ""
-echo -e "# Generating installation log and debug info..."
+echo -e "# $logdebug"
 uname -a
 echo -e ""
 rpm -qa
