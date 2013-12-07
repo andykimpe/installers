@@ -36,8 +36,8 @@ read -e -p "? " lang
 done
 
 wget -q https://raw.github.com/andykimpe/installers/master/lang/$ZPXISOLANGUAGE-centos.sh -P /root
-chmod +x /root/$ZPXISOLANGUAGE.sh
-source $ZPXISOLANGUAGE.sh
+chmod +x /root/$ZPXISOLANGUAGE-centos.sh
+source $ZPXISOLANGUAGE-centos.sh
 
 
 if [ $UID -ne 0 ]; then
