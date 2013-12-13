@@ -41,36 +41,9 @@ passwordgen() {
 
 
 # Set some installation defaults/auto assignments
-tz="Europe/london"
+tz=`cat /etc/sysconfig/clock`
 fqdn=`/bin/hostname`
 publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
-
-
-    #to remedy some problems of compatibility use of mirror centos.org to all users
-    #CentOS-Base.repo
-
-    #released Base
-    sed -i 's|mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os|#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os|' "/etc/yum.repos.d/CentOS-Base.repo"
-    sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/|baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/|' "/etc/yum.repos.d/CentOS-Base.repo"
-    #released Updates
-    sed -i 's|mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates|#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates|' "/etc/yum.repos.d/CentOS-Base.repo"
-    sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/|baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/|' "/etc/yum.repos.d/CentOS-Base.repo"
-    #additional packages that may be useful Centos Extra
-    sed -i 's|mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras|#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras|' "/etc/yum.repos.d/CentOS-Base.repo"
-    sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/|baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/|' "/etc/yum.repos.d/CentOS-Base.repo"
-    #additional packages that extend functionality of existing packages Centos Plus
-    sed -i 's|mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus|#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus|' "/etc/yum.repos.d/CentOS-Base.repo"
-    sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/|baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/|' "/etc/yum.repos.d/CentOS-Base.repo"
-    #contrib - packages by Centos Users
-    sed -i 's|mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib|#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib|' "/etc/yum.repos.d/CentOS-Base.repo"
-    sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/|baseurl=http://mirror.centos.org/centos/$releasever/contrib/$basearch/|' "/etc/yum.repos.d/CentOS-Base.repo"
-
-    #check if the machine and on openvz
-    if [ -f "/etc/yum.repos.d/vz.repo" ]; then
-      #vz.repo
-      sed -i 's|mirrorlist=http://vzdownload.swsoft.com/download/mirrors/centos-6|baseurl=http://vzdownload.swsoft.com/ez/packages/centos/6/$basearch/os/|' "/etc/yum.repos.d/vz.repo"
-      sed -i 's|mirrorlist=http://vzdownload.swsoft.com/download/mirrors/updates-released-ce6|baseurl=http://vzdownload.swsoft.com/ez/packages/centos/6/$basearch/updates/|' "/etc/yum.repos.d/vz.repo"
-    fi
 
 # We need to disable SELinux...
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
@@ -79,14 +52,12 @@ setenforce 0
 # We now stop IPTables to ensure a fully automated and pain free installation.
 service iptables save
 service iptables stop
-chkconfig sendmail off
 chkconfig iptables off
 
 # Start log creation.
 rpm -qa
 
 # Removal of conflicting packages and services prior to ZPX installation.
-service sendmail stop
 yum -y remove bind-chroot
 
 # Install some standard utility packages required by the installer and/or ZPX.
@@ -94,7 +65,6 @@ yum -y install sudo wget vim make zip unzip git chkconfig
 
 
 # We now clone the ZPX software from GitHub
-echo "Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
 git checkout $ZPX_VERSION
@@ -167,8 +137,8 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
-touch /root/passwords.txt;
-echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt;
+touch /root/passwords.txt
+echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt
 echo "MySQL Root Password: $password" >> /root/passwords.txt
 echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt
 echo "IP Address: $publicip" >> /root/passwords.txt
@@ -188,8 +158,8 @@ ln -s /etc/zpanel/configs/postfix/vacation.pl /var/spool/vacation/vacation.pl
 postmap /etc/postfix/transport
 chown -R vacation:vacation /var/spool/vacation
 if ! grep -q "127.0.0.1 autoreply.$fqdn" /etc/hosts; then echo "127.0.0.1 autoreply.$fqdn" >> /etc/hosts; fi
-sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf
-sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf
+sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/zpanel/configs/postfix/main.cf
+sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/zpanel/configs/postfix/main.cf
 rm -rf /etc/postfix/main.cf /etc/postfix/master.cf
 ln -s /etc/zpanel/configs/postfix/master.cf /etc/postfix/master.cf
 ln -s /etc/zpanel/configs/postfix/main.cf /etc/postfix/main.cf
@@ -199,6 +169,10 @@ sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs
 sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_limit_maps.cf
 sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_maps.cf
 sed -i "s|\$db_password \= 'postfix';|\$db_password \= '$postfixpassword';|" /etc/zpanel/configs/postfix/vacation.conf
+
+
+
+
 
 # Dovecot specific installation tasks (includes Sieve)
 mkdir /var/zpanel/sieve
@@ -292,6 +266,15 @@ service named start
 service proftpd start
 service atd start
 php /etc/zpanel/panel/bin/daemon.php
+service httpd restart
+service postfix restart
+service dovecot restart
+service crond restart
+service mysqld restart
+service named restart
+service proftpd restart
+service atd restart
+
 
 # We'll now remove the temporary install cache.
 cd ../
