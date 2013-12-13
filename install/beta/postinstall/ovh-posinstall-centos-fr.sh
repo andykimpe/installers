@@ -299,8 +299,8 @@ rm -rf zp_install_cache/ zpanelx/
 
 #add french translate
 git clone https://github.com/ZPanelFR/zpxfrtrad.git
-rm -f /etc/zpanel/panel/init/init.inc.php
-cp zpxfrtrad/init/init.inc.php /etc/zpanel/panel/init/
+rm -f /etc/zpanel/panel/inc/init.inc.php
+cp zpxfrtrad/inc/init.inc.php /etc/zpanel/panel/inc/
 mkdir /etc/zpanel/panel/lang
 cp -R zpxfrtrad/lang/* /etc/zpanel/panel/lang
 rm -f /etc/zpanel/panel/etc/styles/zpanelx/login.ztml
