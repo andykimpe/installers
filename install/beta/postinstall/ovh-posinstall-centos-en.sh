@@ -56,7 +56,7 @@ chkconfig iptables off > $logfile
 rpm -qa > $logfile
 
 # Removal of conflicting packages and services prior to ZPX installation.
-#yum -y remove bind-chroot > $logfile
+yum -y remove bind-chroot > $logfile
 
 # Install some standard utility packages required by the installer and/or ZPX.
 #yum -y install sudo wget vim make zip unzip git chkconfig > $logfile
