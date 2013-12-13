@@ -156,8 +156,8 @@ ln -s /etc/zpanel/configs/postfix/vacation.pl /var/spool/vacation/vacation.pl > 
 postmap /etc/postfix/transport > $logfile
 chown -R vacation:vacation /var/spool/vacation > $logfile
 if ! grep -q "127.0.0.1 autoreply.$fqdn" /etc/hosts; then echo "127.0.0.1 autoreply.$fqdn" >> /etc/hosts; fi > $logfile
-sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf > $logfile
-sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf > $logfile
+sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/zpanel/configs/postfix/main.cf > $logfile
+sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/zpanel/configs/postfix/main.cf > $logfile
 rm -rf /etc/postfix/main.cf /etc/postfix/master.cf > $logfile
 ln -s /etc/zpanel/configs/postfix/master.cf /etc/postfix/master.cf > $logfile
 ln -s /etc/zpanel/configs/postfix/main.cf /etc/postfix/main.cf > $logfile
@@ -173,21 +173,21 @@ sed -i "s|\$db_password \= 'postfix';|\$db_password \= '$postfixpassword';|" /et
 
 
 # Dovecot specific installation tasks (includes Sieve)
-#mkdir /var/zpanel/sieve > $logfile
-#chown -R vmail:mail /var/zpanel/sieve > $logfile
-#mkdir /var/lib/dovecot/sieve/ > $logfile
-#touch /var/lib/dovecot/sieve/default.sieve > $logfile
-#ln -s /etc/zpanel/configs/dovecot2/globalfilter.sieve /var/zpanel/sieve/globalfilter.sieve > $logfile
-#rm -rf /etc/dovecot/dovecot.conf > $logfile
-#ln -s /etc/zpanel/configs/dovecot2/dovecot.conf /etc/dovecot/dovecot.conf > $logfile
-#sed -i "s|postmaster_address = postmaster@your-domain.tld|postmaster_address = postmaster@$fqdn|" /etc/dovecot/dovecot.conf > $logfile
-#sed -i "s|password=postfix|password=$postfixpassword|" /etc/zpanel/configs/dovecot2/dovecot-dict-quota.conf > $logfile
-#sed -i "s|password=postfix|password=$postfixpassword|" /etc/zpanel/configs/dovecot2/dovecot-mysql.conf > $logfile
-#touch /var/log/dovecot.log > $logfile
-#touch /var/log/dovecot-info.log > $logfile
-#touch /var/log/dovecot-debug.log > $logfile
-#chown vmail:mail /var/log/dovecot* > $logfile
-#chmod 660 /var/log/dovecot* > $logfile
+mkdir /var/zpanel/sieve > $logfile
+chown -R vmail:mail /var/zpanel/sieve > $logfile
+mkdir /var/lib/dovecot/sieve/ > $logfile
+touch /var/lib/dovecot/sieve/default.sieve > $logfile
+ln -s /etc/zpanel/configs/dovecot2/globalfilter.sieve /var/zpanel/sieve/globalfilter.sieve > $logfile
+rm -rf /etc/dovecot/dovecot.conf > $logfile
+ln -s /etc/zpanel/configs/dovecot2/dovecot.conf /etc/dovecot/dovecot.conf > $logfile
+sed -i "s|postmaster_address = postmaster@your-domain.tld|postmaster_address = postmaster@$fqdn|" /etc/dovecot/dovecot.conf > $logfile
+sed -i "s|password=postfix|password=$postfixpassword|" /etc/zpanel/configs/dovecot2/dovecot-dict-quota.conf > $logfile
+sed -i "s|password=postfix|password=$postfixpassword|" /etc/zpanel/configs/dovecot2/dovecot-mysql.conf > $logfile
+touch /var/log/dovecot.log > $logfile
+touch /var/log/dovecot-info.log > $logfile
+touch /var/log/dovecot-debug.log > $logfile
+chown vmail:mail /var/log/dovecot* > $logfile
+chmod 660 /var/log/dovecot* > $logfile
 
 # ProFTPD specific installation tasks
 #groupadd -g 2001 ftpgroup > $logfile
