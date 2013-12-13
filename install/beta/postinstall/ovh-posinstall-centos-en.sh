@@ -79,42 +79,42 @@ yum -y update > $logfile
 yum -y upgrade > $logfile
 
 # Install required software and dependencies required by ZPanel.
-#yum -y install ld-linux.so.2 libbz2.so.1 libdb-4.7.so libgd.so.2 httpd php php-suhosin php-devel php-gd php-mbstring php-mcrypt php-intl php-imap php-mysql php-xml php-xmlrpc curl curl-devel perl-libwww-perl libxml2 libxml2-devel mysql-server zip webalizer gcc gcc-c++ httpd-devel at make mysql-devel bzip2-devel postfix postfix-perl-scripts bash-completion dovecot dovecot-mysql dovecot-pigeonhole mysql-server proftpd proftpd-mysql bind bind-utils bind-libs > $logfile
+yum -y install ld-linux.so.2 libbz2.so.1 libdb-4.7.so libgd.so.2 httpd php php-suhosin php-devel php-gd php-mbstring php-mcrypt php-intl php-imap php-mysql php-xml php-xmlrpc curl curl-devel perl-libwww-perl libxml2 libxml2-devel mysql-server zip webalizer gcc gcc-c++ httpd-devel at make mysql-devel bzip2-devel postfix postfix-perl-scripts bash-completion dovecot dovecot-mysql dovecot-pigeonhole mysql-server proftpd proftpd-mysql bind bind-utils bind-libs > $logfile
 
 # Generation of random passwords
-#password=`passwordgen`;
-#postfixpassword=`passwordgen`;
-#zadminNewPass=`passwordgen`;
+password=`passwordgen`;
+postfixpassword=`passwordgen`;
+zadminNewPass=`passwordgen`;
 
 # Set-up ZPanel directories and configure directory permissions as required.
-#mkdir /etc/zpanel > $logfile
-#mkdir /etc/zpanel/configs > $logfile
-#mkdir /etc/zpanel/panel > $logfile
-#mkdir /etc/zpanel/docs > $logfile
-#mkdir /var/zpanel > $logfile
-#mkdir /var/zpanel/hostdata > $logfile
-#mkdir /var/zpanel/hostdata/zadmin > $logfile
-#mkdir /var/zpanel/hostdata/zadmin/public_html > $logfile
-#mkdir /var/zpanel/logs > $logfile
-#mkdir /var/zpanel/logs/proftpd > $logfile
-#mkdir /var/zpanel/backups > $logfile
-#mkdir /var/zpanel/temp > $logfile
-#cp -R . /etc/zpanel/panel/ > $logfile
-#chmod -R 777 /etc/zpanel/ > $logfile
-#chmod -R 777 /var/zpanel/ > $logfile
-#chmod -R 770 /var/zpanel/hostdata/ > $logfile
-#chown -R apache:apache /var/zpanel/hostdata/ > $logfile
-#chmod 644 /etc/zpanel/panel/etc/apps/phpmyadmin/config.inc.php > $logfile
-#ln -s /etc/zpanel/panel/bin/zppy /usr/bin/zppy > $logfile
-#ln -s /etc/zpanel/panel/bin/setso /usr/bin/setso > $logfile
-#ln -s /etc/zpanel/panel/bin/setzadmin /usr/bin/setzadmin > $logfile
-#chmod +x /etc/zpanel/panel/bin/zppy > $logfile
-#chmod +x /etc/zpanel/panel/bin/setso > $logfile
-#cp -R /etc/zpanel/panel/etc/build/config_packs/centos_6_3/. /etc/zpanel/configs/ > $logfile
-#sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$password|" /etc/zpanel/panel/cnf/db.php > $logfile
-#cc -o /etc/zpanel/panel/bin/zsudo /etc/zpanel/configs/bin/zsudo.c > $logfile
-#sudo chown root /etc/zpanel/panel/bin/zsudo > $logfile
-#chmod +s /etc/zpanel/panel/bin/zsudo > $logfile
+mkdir /etc/zpanel > $logfile
+mkdir /etc/zpanel/configs > $logfile
+mkdir /etc/zpanel/panel > $logfile
+mkdir /etc/zpanel/docs > $logfile
+mkdir /var/zpanel > $logfile
+mkdir /var/zpanel/hostdata > $logfile
+mkdir /var/zpanel/hostdata/zadmin > $logfile
+mkdir /var/zpanel/hostdata/zadmin/public_html > $logfile
+mkdir /var/zpanel/logs > $logfile
+mkdir /var/zpanel/logs/proftpd > $logfile
+mkdir /var/zpanel/backups > $logfile
+mkdir /var/zpanel/temp > $logfile
+cp -R . /etc/zpanel/panel/ > $logfile
+chmod -R 777 /etc/zpanel/ > $logfile
+chmod -R 777 /var/zpanel/ > $logfile
+chmod -R 770 /var/zpanel/hostdata/ > $logfile
+chown -R apache:apache /var/zpanel/hostdata/ > $logfile
+chmod 644 /etc/zpanel/panel/etc/apps/phpmyadmin/config.inc.php > $logfile
+ln -s /etc/zpanel/panel/bin/zppy /usr/bin/zppy > $logfile
+ln -s /etc/zpanel/panel/bin/setso /usr/bin/setso > $logfile
+ln -s /etc/zpanel/panel/bin/setzadmin /usr/bin/setzadmin > $logfile
+chmod +x /etc/zpanel/panel/bin/zppy > $logfile
+chmod +x /etc/zpanel/panel/bin/setso > $logfile
+cp -R /etc/zpanel/panel/etc/build/config_packs/centos_6_3/. /etc/zpanel/configs/ > $logfile
+sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$password|" /etc/zpanel/panel/cnf/db.php > $logfile
+cc -o /etc/zpanel/panel/bin/zsudo /etc/zpanel/configs/bin/zsudo.c > $logfile
+sudo chown root /etc/zpanel/panel/bin/zsudo > $logfile
+chmod +s /etc/zpanel/panel/bin/zsudo > $logfile
 
 # MySQL specific installation tasks...
 #service mysqld start > $logfile
