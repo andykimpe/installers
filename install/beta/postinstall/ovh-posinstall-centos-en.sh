@@ -36,7 +36,6 @@ passwordgen() {
 
 
 # Set some installation defaults/auto assignments
-tz=`cat /etc/sysconfig/clock`
 fqdn=`/bin/hostname`
 publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
@@ -139,6 +138,8 @@ echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt
 echo "IP Address: $publicip" >> /root/passwords.txt
 echo "Panel Domain: $fqdn" >> /root/passwords.txt
 
+
+tz=`cat /etc/sysconfig/clock`
 # Postfix specific installation tasks...
 sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini
 sed -i "s|;upload_tmp_dir =|upload_tmp_dir = /var/zpanel/temp/|" /etc/php.ini
