@@ -39,7 +39,7 @@ passwordgen() {
 
 
 # Set some installation defaults/auto assignments
-tz="Europe/london"
+tz=`cat /etc/sysconfig/clock`
 fqdn=`/bin/hostname`
 publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
