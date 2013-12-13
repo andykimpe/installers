@@ -117,30 +117,30 @@ sudo chown root /etc/zpanel/panel/bin/zsudo > $logfile
 chmod +s /etc/zpanel/panel/bin/zsudo > $logfile
 
 # MySQL specific installation tasks...
-#service mysqld start > $logfile
-#mysqladmin -u root password "$password" > $logfile
-#mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'"; > $logfile
-#mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User=''"; > $logfile
-#mysql -u root -p$password -e "DROP DATABASE test"; > $logfile
-#mysql -u root -p$password -e "CREATE SCHEMA zpanel_roundcube"; > $logfile
-#cat /etc/zpanel/configs/zpanelx-install/sql/*.sql | mysql -u root -p$password > $logfile
-#mysql -u root -p$password -e "UPDATE mysql.user SET Password=PASSWORD('$postfixpassword') WHERE User='postfix' AND Host='localhost';"; > $logfile
-#mysql -u root -p$password -e "FLUSH PRIVILEGES"; > $logfile
-#sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf > $logfile
+service mysqld start > $logfile
+mysqladmin -u root password "$password" > $logfile
+mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'"; > $logfile
+mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User=''"; > $logfile
+mysql -u root -p$password -e "DROP DATABASE test"; > $logfile
+mysql -u root -p$password -e "CREATE SCHEMA zpanel_roundcube"; > $logfile
+cat /etc/zpanel/configs/zpanelx-install/sql/*.sql | mysql -u root -p$password > $logfile
+mysql -u root -p$password -e "UPDATE mysql.user SET Password=PASSWORD('$postfixpassword') WHERE User='postfix' AND Host='localhost';"; > $logfile
+mysql -u root -p$password -e "FLUSH PRIVILEGES"; > $logfile
+sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf > $logfile
 
 # Set some ZPanel custom configuration settings (using. setso and setzadmin)
-#/etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass"; > $logfile
-#/etc/zpanel/panel/bin/setso --set zpanel_domain $fqdn > $logfile
-#/etc/zpanel/panel/bin/setso --set server_ip $publicip > $logfile
-#/etc/zpanel/panel/bin/setso --set apache_changed "true" > $logfile
+/etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass"; > $logfile
+/etc/zpanel/panel/bin/setso --set zpanel_domain $fqdn > $logfile
+/etc/zpanel/panel/bin/setso --set server_ip $publicip > $logfile
+/etc/zpanel/panel/bin/setso --set apache_changed "true" > $logfile
 
 # We'll store the passwords so that users can review them later if required.
-#touch /root/passwords.txt > $logfile
-#echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt > $logfile
-#echo "MySQL Root Password: $password" >> /root/passwords.txt > $logfile
-#echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt > $logfile
-#echo "IP Address: $publicip" >> /root/passwords.txt > $logfile
-#echo "Panel Domain: $fqdn" >> /root/passwords.txt > $logfile
+touch /root/passwords.txt > $logfile
+echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt > $logfile
+echo "MySQL Root Password: $password" >> /root/passwords.txt > $logfile
+echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt > $logfile
+echo "IP Address: $publicip" >> /root/passwords.txt > $logfile
+echo "Panel Domain: $fqdn" >> /root/passwords.txt > $logfile
 
 # Postfix specific installation tasks...
 #sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini > $logfile
