@@ -59,16 +59,16 @@ rpm -qa > $logfile
 yum -y remove bind-chroot > $logfile
 
 # Install some standard utility packages required by the installer and/or ZPX.
-#yum -y install sudo wget vim make zip unzip git chkconfig > $logfile
+yum -y install sudo wget vim make zip unzip git chkconfig > $logfile
 
 
 # We now clone the ZPX software from GitHub
-#git clone https://github.com/bobsta63/zpanelx.git > $logfile
-#cd zpanelx/ > $logfile
-#git checkout $ZPX_VERSION > $logfile
-#mkdir ../zp_install_cache/ > $logfile
-#git checkout-index -a -f --prefix=../zp_install_cache/ > $logfile
-#cd ../zp_install_cache/ > $logfile
+git clone https://github.com/bobsta63/zpanelx.git > $logfile
+cd zpanelx/ > $logfile
+git checkout $ZPX_VERSION > $logfile
+mkdir ../zp_install_cache/ > $logfile
+git checkout-index -a -f --prefix=../zp_install_cache/ > $logfile
+cd ../zp_install_cache/ > $logfile
 
 # Lets pull in all the required updates etc.
 #rpm --import https://fedoraproject.org/static/0608B895.txt > $logfile
