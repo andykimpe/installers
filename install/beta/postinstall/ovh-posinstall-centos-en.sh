@@ -71,12 +71,12 @@ git checkout-index -a -f --prefix=../zp_install_cache/ > $logfile
 cd ../zp_install_cache/ > $logfile
 
 # Lets pull in all the required updates etc.
-#rpm --import https://fedoraproject.org/static/0608B895.txt > $logfile
-#cp etc/build/config_packs/centos_6_3/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo > $logfile
+rpm --import https://fedoraproject.org/static/0608B895.txt > $logfile
+cp etc/build/config_packs/centos_6_3/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo > $logfile
 
 # We now update the server software packages.
-#yum -y update > $logfile
-#yum -y upgrade > $logfile
+yum -y update > $logfile
+yum -y upgrade > $logfile
 
 # Install required software and dependencies required by ZPanel.
 #yum -y install ld-linux.so.2 libbz2.so.1 libdb-4.7.so libgd.so.2 httpd php php-suhosin php-devel php-gd php-mbstring php-mcrypt php-intl php-imap php-mysql php-xml php-xmlrpc curl curl-devel perl-libwww-perl libxml2 libxml2-devel mysql-server zip webalizer gcc gcc-c++ httpd-devel at make mysql-devel bzip2-devel postfix postfix-perl-scripts bash-completion dovecot dovecot-mysql dovecot-pigeonhole mysql-server proftpd proftpd-mysql bind bind-utils bind-libs > $logfile
