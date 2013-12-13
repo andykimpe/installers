@@ -216,11 +216,11 @@ usermod -a -G ftpgroup apache
 # BIND specific installation tasks...
 chmod -R 777 /etc/zpanel/configs/bind/zones/
 rm -rf /etc/named.conf /etc/rndc.conf /etc/rndc.key
-rndc-confgen -a
-ln -s /etc/zpanel/configs/bind/named.conf /etc/named.conf
-ln -s /etc/zpanel/configs/bind/rndc.conf /etc/rndc.conf
-cat /etc/rndc.key /etc/named.conf | tee named.conf
-cat /etc/rndc.key /etc/rndc.conf | tee named.conf
+rndc-confgen -a > /dev/null 2>&1
+ln -s /etc/zpanel/configs/bind/named.conf /etc/named.conf > /dev/null 2>&1
+ln -s /etc/zpanel/configs/bind/rndc.conf /etc/rndc.conf > /dev/null 2>&1
+cat /etc/rndc.key /etc/named.conf | tee named.conf > /dev/null 2>&1
+cat /etc/rndc.key /etc/rndc.conf | tee named.conf > /dev/null 2>&1
 
 # CRON specific installation tasks...
 mkdir -p /var/spool/cron/
