@@ -255,19 +255,28 @@ chkconfig crond on > $logfile
 chkconfig mysqld on > $logfile
 chkconfig named on > $logfile
 chkconfig proftpd on > $logfile
-#service httpd start > $logfile
-#service postfix restart > $logfile
-#service dovecot start > $logfile
-#service crond reload > $logfile
-#service mysqld start > $logfile
-#service named start > $logfile
-#service proftpd start > $logfile
-#service atd start > $logfile
-#php /etc/zpanel/panel/bin/daemon.php > $logfile
+service httpd start > $logfile
+service postfix restart > $logfile
+service dovecot start > $logfile
+service crond reload > $logfile
+service mysqld start > $logfile
+service named start > $logfile
+service proftpd start > $logfile
+service atd start > $logfile
+php /etc/zpanel/panel/bin/daemon.php > $logfile
+service httpd restart > $logfile
+service postfix restart > $logfile
+service dovecot restart > $logfile
+service crond restart > $logfile
+service mysqld restart > $logfile
+service named restart > $logfile
+service proftpd restart > $logfile
+service atd restart > $logfile
+
 
 # We'll now remove the temporary install cache.
-#cd ../ > $logfile
-#rm -rf zp_install_cache/ zpanelx/ > $logfile
+cd ../ > $logfile
+rm -rf zp_install_cache/ zpanelx/ > $logfile
 
 echo "OK"
 exit
