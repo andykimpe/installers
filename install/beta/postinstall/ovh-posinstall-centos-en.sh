@@ -190,14 +190,14 @@ chown vmail:mail /var/log/dovecot* > $logfile
 chmod 660 /var/log/dovecot* > $logfile
 
 # ProFTPD specific installation tasks
-#groupadd -g 2001 ftpgroup > $logfile
-#useradd -u 2001 -s /bin/false -d /bin/null -c "proftpd user" -g ftpgroup ftpuser > $logfile
-#sed -i "s|zpanel_proftpd@localhost root z|zpanel_proftpd@localhost root $password|" /etc/zpanel/configs/proftpd/proftpd-mysql.conf > $logfile
-#rm -rf /etc/proftpd.conf > $logfile
-#touch /etc/proftpd.conf > $logfile
-#if ! grep -q "include /etc/zpanel/configs/proftpd/proftpd-mysql.conf" /etc/proftpd.conf; then echo "include /etc/zpanel/configs/proftpd/proftpd-mysql.conf" >> /etc/proftpd.conf; fi > $logfile
-#chmod -R 644 /var/zpanel/logs/proftpd > $logfile
-#serverhost=`hostname`
+groupadd -g 2001 ftpgroup > $logfile
+useradd -u 2001 -s /bin/false -d /bin/null -c "proftpd user" -g ftpgroup ftpuser > $logfile
+sed -i "s|zpanel_proftpd@localhost root z|zpanel_proftpd@localhost root $password|" /etc/zpanel/configs/proftpd/proftpd-mysql.conf > $logfile
+rm -rf /etc/proftpd.conf > $logfile
+touch /etc/proftpd.conf > $logfile
+if ! grep -q "include /etc/zpanel/configs/proftpd/proftpd-mysql.conf" /etc/proftpd.conf; then echo "include /etc/zpanel/configs/proftpd/proftpd-mysql.conf" >> /etc/proftpd.conf; fi > $logfile
+chmod -R 644 /var/zpanel/logs/proftpd > $logfile
+serverhost=`hostname`
 
 # Apache HTTPD specific installation tasks...
 #if ! grep -q "Include /etc/zpanel/configs/apache/httpd.conf" /etc/httpd/conf/httpd.conf; then echo "Include /etc/zpanel/configs/apache/httpd.conf" >> /etc/httpd/conf/httpd.conf; fi > $logfile
