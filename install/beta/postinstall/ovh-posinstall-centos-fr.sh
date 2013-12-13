@@ -308,6 +308,7 @@ cp zpxfrtrad/etc/styles/zpanelx/login.ztml /etc/zpanel/panel/etc/styles/zpanelx/
 cp zpxfrtrad/etc/static/errorpages/* /etc/zpanel/panel/etc/static/errorpages
 mkdir /etc/zpanel/panel/etc/static/lang
 cp zpxfrtrad/etc/static/lang/* /etc/zpanel/panel/etc/static/lang
+rm -f /etc/zpanel/panel/etc/static/pages/notactive.html
 cp zpxfrtrad/etc/static/pages/* /etc/zpanel/panel/etc/static/pages
 cat zpxfrtrad/install-fr.sql | mysql -u root -p$password
 rm -rf zpxfrtrad
