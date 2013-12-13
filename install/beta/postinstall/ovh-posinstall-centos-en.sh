@@ -143,30 +143,34 @@ echo "IP Address: $publicip" >> /root/passwords.txt > $logfile
 echo "Panel Domain: $fqdn" >> /root/passwords.txt > $logfile
 
 # Postfix specific installation tasks...
-#sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini > $logfile
-#sed -i "s|;upload_tmp_dir =|upload_tmp_dir = /var/zpanel/temp/|" /etc/php.ini > $logfile
-#mkdir /var/zpanel/vmail > $logfile
-#chmod -R 770 /var/zpanel/vmail > $logfile
-#useradd -r -u 101 -g mail -d /var/zpanel/vmail -s /sbin/nologin -c "Virtual mailbox" vmail > $logfile
-#chown -R vmail:mail /var/zpanel/vmail > $logfile
-#mkdir -p /var/spool/vacation > $logfile
-#useradd -r -d /var/spool/vacation -s /sbin/nologin -c "Virtual vacation" vacation > $logfile
-#chmod -R 770 /var/spool/vacation > $logfile
-#ln -s /etc/zpanel/configs/postfix/vacation.pl /var/spool/vacation/vacation.pl > $logfile
-#postmap /etc/postfix/transport > $logfile
-#chown -R vacation:vacation /var/spool/vacation > $logfile
-#if ! grep -q "127.0.0.1 autoreply.$fqdn" /etc/hosts; then echo "127.0.0.1 autoreply.$fqdn" >> /etc/hosts; fi > $logfile
-#sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf > $logfile
-#sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf > $logfile
-#rm -rf /etc/postfix/main.cf /etc/postfix/master.cf > $logfile
-#ln -s /etc/zpanel/configs/postfix/master.cf /etc/postfix/master.cf > $logfile
-#ln -s /etc/zpanel/configs/postfix/main.cf /etc/postfix/main.cf > $logfile
-#sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-relay_domains_maps.cf > $logfile
-#sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_alias_maps.cf > $logfile
-#sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_domains_maps.cf > $logfile
-#sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_limit_maps.cf > $logfile
-#sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_maps.cf > $logfile
-#sed -i "s|\$db_password \= 'postfix';|\$db_password \= '$postfixpassword';|" /etc/zpanel/configs/postfix/vacation.conf > $logfile
+sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini > $logfile
+sed -i "s|;upload_tmp_dir =|upload_tmp_dir = /var/zpanel/temp/|" /etc/php.ini > $logfile
+mkdir /var/zpanel/vmail > $logfile
+chmod -R 770 /var/zpanel/vmail > $logfile
+useradd -r -u 101 -g mail -d /var/zpanel/vmail -s /sbin/nologin -c "Virtual mailbox" vmail > $logfile
+chown -R vmail:mail /var/zpanel/vmail > $logfile
+mkdir -p /var/spool/vacation > $logfile
+useradd -r -d /var/spool/vacation -s /sbin/nologin -c "Virtual vacation" vacation > $logfile
+chmod -R 770 /var/spool/vacation > $logfile
+ln -s /etc/zpanel/configs/postfix/vacation.pl /var/spool/vacation/vacation.pl > $logfile
+postmap /etc/postfix/transport > $logfile
+chown -R vacation:vacation /var/spool/vacation > $logfile
+if ! grep -q "127.0.0.1 autoreply.$fqdn" /etc/hosts; then echo "127.0.0.1 autoreply.$fqdn" >> /etc/hosts; fi > $logfile
+sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf > $logfile
+sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf > $logfile
+rm -rf /etc/postfix/main.cf /etc/postfix/master.cf > $logfile
+ln -s /etc/zpanel/configs/postfix/master.cf /etc/postfix/master.cf > $logfile
+ln -s /etc/zpanel/configs/postfix/main.cf /etc/postfix/main.cf > $logfile
+sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-relay_domains_maps.cf > $logfile
+sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_alias_maps.cf > $logfile
+sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_domains_maps.cf > $logfile
+sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_limit_maps.cf > $logfile
+sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_mailbox_maps.cf > $logfile
+sed -i "s|\$db_password \= 'postfix';|\$db_password \= '$postfixpassword';|" /etc/zpanel/configs/postfix/vacation.conf > $logfile
+
+
+
+
 
 # Dovecot specific installation tasks (includes Sieve)
 #mkdir /var/zpanel/sieve > $logfile
