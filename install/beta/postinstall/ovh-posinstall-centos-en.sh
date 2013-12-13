@@ -200,61 +200,61 @@ chmod -R 644 /var/zpanel/logs/proftpd > $logfile
 serverhost=`hostname`
 
 # Apache HTTPD specific installation tasks...
-#if ! grep -q "Include /etc/zpanel/configs/apache/httpd.conf" /etc/httpd/conf/httpd.conf; then echo "Include /etc/zpanel/configs/apache/httpd.conf" >> /etc/httpd/conf/httpd.conf; fi > $logfile
-#if ! grep -q "127.0.0.1 "$fqdn /etc/hosts; then echo "127.0.0.1 "$fqdn >> /etc/hosts; fi > $logfile
-#if ! grep -q "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" /etc/sudoers; then echo "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" >> /etc/sudoers; fi > $logfile
-#sed -i 's|DocumentRoot "/var/www/html"|DocumentRoot "/etc/zpanel/panel"|' /etc/httpd/conf/httpd.conf > $logfile
-#chown -R apache:apache /var/zpanel/temp/ > $logfile
+if ! grep -q "Include /etc/zpanel/configs/apache/httpd.conf" /etc/httpd/conf/httpd.conf; then echo "Include /etc/zpanel/configs/apache/httpd.conf" >> /etc/httpd/conf/httpd.conf; fi > $logfile
+if ! grep -q "127.0.0.1 "$fqdn /etc/hosts; then echo "127.0.0.1 "$fqdn >> /etc/hosts; fi > $logfile
+if ! grep -q "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" /etc/sudoers; then echo "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" >> /etc/sudoers; fi > $logfile
+sed -i 's|DocumentRoot "/var/www/html"|DocumentRoot "/etc/zpanel/panel"|' /etc/httpd/conf/httpd.conf > $logfile
+chown -R apache:apache /var/zpanel/temp/ > $logfile
 
 # PHP specific installation tasks...
-#sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini > $logfile
-#sed -i "s|;upload_tmp_dir =|upload_tmp_dir = /var/zpanel/temp/|" /etc/php.ini > $logfile
+sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini > $logfile
+sed -i "s|;upload_tmp_dir =|upload_tmp_dir = /var/zpanel/temp/|" /etc/php.ini > $logfile
 
 # Permissions fix for Apache and ProFTPD (to enable them to play nicely together!)
-#if ! grep -q "umask 002" /etc/sysconfig/httpd; then echo "umask 002" >> /etc/sysconfig/httpd; fi > $logfile
-#if ! grep -q "127.0.0.1 $serverhost" /etc/hosts; then echo "127.0.0.1 $serverhost" >> /etc/hosts; fi > $logfile
-#usermod -a -G apache ftpuser > $logfile
-#usermod -a -G ftpgroup apache > $logfile
+if ! grep -q "umask 002" /etc/sysconfig/httpd; then echo "umask 002" >> /etc/sysconfig/httpd; fi > $logfile
+if ! grep -q "127.0.0.1 $serverhost" /etc/hosts; then echo "127.0.0.1 $serverhost" >> /etc/hosts; fi > $logfile
+usermod -a -G apache ftpuser > $logfile
+usermod -a -G ftpgroup apache > $logfile
 
 # BIND specific installation tasks...
-#chmod -R 777 /etc/zpanel/configs/bind/zones/ > $logfile
-#rm -rf /etc/named.conf /etc/rndc.conf /etc/rndc.key > $logfile
-#rndc-confgen -a > $logfile
-#ln -s /etc/zpanel/configs/bind/named.conf /etc/named.conf > $logfile
-#ln -s /etc/zpanel/configs/bind/rndc.conf /etc/rndc.conf > $logfile
-#cat /etc/rndc.key /etc/named.conf | tee named.conf > /dev/null > $logfile
-#cat /etc/rndc.key /etc/rndc.conf | tee named.conf > /dev/null > $logfile
+chmod -R 777 /etc/zpanel/configs/bind/zones/ > $logfile
+rm -rf /etc/named.conf /etc/rndc.conf /etc/rndc.key > $logfile
+rndc-confgen -a > $logfile
+ln -s /etc/zpanel/configs/bind/named.conf /etc/named.conf > $logfile
+ln -s /etc/zpanel/configs/bind/rndc.conf /etc/rndc.conf > $logfile
+cat /etc/rndc.key /etc/named.conf | tee named.conf > /dev/null > $logfile
+cat /etc/rndc.key /etc/rndc.conf | tee named.conf > /dev/null > $logfile
 
 # CRON specific installation tasks...
-#mkdir -p /var/spool/cron/ > $logfile
-#mkdir -p /etc/cron.d/ > $logfile
-#touch /var/spool/cron/apache > $logfile
-#touch /etc/cron.d/apache > $logfile
-#crontab -u apache /var/spool/cron/apache > $logfile
-#cp /etc/zpanel/configs/cron/zdaemon /etc/cron.d/zdaemon > $logfile
-#chmod -R 644 /var/spool/cron/ > $logfile
-#chmod -R 644 /etc/cron.d/ > $logfile
-#chown -R apache:apache /var/spool/cron/ > $logfile
+mkdir -p /var/spool/cron/ > $logfile
+mkdir -p /etc/cron.d/ > $logfile
+touch /var/spool/cron/apache > $logfile
+touch /etc/cron.d/apache > $logfile
+crontab -u apache /var/spool/cron/apache > $logfile
+cp /etc/zpanel/configs/cron/zdaemon /etc/cron.d/zdaemon > $logfile
+chmod -R 644 /var/spool/cron/ > $logfile
+chmod -R 644 /etc/cron.d/ > $logfile
+chown -R apache:apache /var/spool/cron/ > $logfile
 
 # Webalizer specific installation tasks...
-#rm -rf /etc/webalizer.conf > $logfile
+rm -rf /etc/webalizer.conf > $logfile
 
 # Roundcube specific installation tasks...
-#sed -i "s|YOUR_MYSQL_ROOT_PASSWORD|$password|" /etc/zpanel/configs/roundcube/db.inc.php > $logfile
-#sed -i "s|#||" /etc/zpanel/configs/roundcube/db.inc.php > $logfile
-#rm -rf /etc/zpanel/panel/etc/apps/webmail/config/main.inc.php > $logfile
-#ln -s /etc/zpanel/configs/roundcube/main.inc.php /etc/zpanel/panel/etc/apps/webmail/config/main.inc.php > $logfile
-#ln -s /etc/zpanel/configs/roundcube/config.inc.php /etc/zpanel/panel/etc/apps/webmail/plugins/managesieve/config.inc.php > $logfile
-#ln -s /etc/zpanel/configs/roundcube/db.inc.php /etc/zpanel/panel/etc/apps/webmail/config/db.inc.php > $logfile
+sed -i "s|YOUR_MYSQL_ROOT_PASSWORD|$password|" /etc/zpanel/configs/roundcube/db.inc.php > $logfile
+sed -i "s|#||" /etc/zpanel/configs/roundcube/db.inc.php > $logfile
+rm -rf /etc/zpanel/panel/etc/apps/webmail/config/main.inc.php > $logfile
+ln -s /etc/zpanel/configs/roundcube/main.inc.php /etc/zpanel/panel/etc/apps/webmail/config/main.inc.php > $logfile
+ln -s /etc/zpanel/configs/roundcube/config.inc.php /etc/zpanel/panel/etc/apps/webmail/plugins/managesieve/config.inc.php > $logfile
+ln -s /etc/zpanel/configs/roundcube/db.inc.php /etc/zpanel/panel/etc/apps/webmail/config/db.inc.php > $logfile
 
 # Enable system services and start/restart them as required.
-#chkconfig httpd on > $logfile
-#chkconfig postfix on > $logfile
-#chkconfig dovecot on > $logfile
-#chkconfig crond on > $logfile
-#chkconfig mysqld on > $logfile
-#chkconfig named on > $logfile
-#chkconfig proftpd on > $logfile
+chkconfig httpd on > $logfile
+chkconfig postfix on > $logfile
+chkconfig dovecot on > $logfile
+chkconfig crond on > $logfile
+chkconfig mysqld on > $logfile
+chkconfig named on > $logfile
+chkconfig proftpd on > $logfile
 #service httpd start > $logfile
 #service postfix restart > $logfile
 #service dovecot start > $logfile
