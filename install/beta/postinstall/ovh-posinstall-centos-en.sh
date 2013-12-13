@@ -53,7 +53,7 @@ service iptables stop > $logfile
 chkconfig iptables off > $logfile
 
 # Start log creation.
-#rpm -qa > $logfile
+rpm -qa > $logfile
 
 # Removal of conflicting packages and services prior to ZPX installation.
 #yum -y remove bind-chroot > $logfile
