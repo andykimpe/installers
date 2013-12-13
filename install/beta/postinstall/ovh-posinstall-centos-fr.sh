@@ -41,7 +41,7 @@ passwordgen() {
 
 
 # Set some installation defaults/auto assignments
-tz=`cat /etc/sysconfig/clock`
+tz=`Europe/Berlin`
 fqdn=`/bin/hostname`
 publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
