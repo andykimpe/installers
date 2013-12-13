@@ -265,7 +265,7 @@ service mysqld start
 service named start
 service proftpd start
 service atd start
-php -q /etc/zpanel/panel/bin/daemon.php
+php -q /etc/zpanel/panel/bin/daemon.php > /dev/null 2>&1
 service httpd restart
 service postfix restart
 service dovecot restart
