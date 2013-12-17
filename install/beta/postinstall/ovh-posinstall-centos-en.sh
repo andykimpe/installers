@@ -36,7 +36,7 @@ passwordgen() {
 
 
 # Set some installation defaults/auto assignments
-tz=`cat /etc/sysconfig/clock`
+tz=$(grep -E '^ZONE="(.+)' /etc/sysconfig/clock | cut -d\" -f2)
 fqdn=`/bin/hostname`
 publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
