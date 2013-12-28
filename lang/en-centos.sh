@@ -24,3 +24,4 @@ downloadzp="Downloading ZPanel, Please wait, this may take several minutes, the 
 enterfqdn="Enter the FQDN of the server (example: zpanel.yourdomain.com)"
 enterip="Enter the public (external) server IP"
 installok="ZPanel is now ready to install, do you wish to continue (y/n)"
+zadminpassword="zadmin Password"
