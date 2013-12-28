@@ -111,9 +111,9 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 while true; do
 	tzselect
 	tz=`cat /etc/timezone`
-	read -e -p "$enterfqdn: " -i $fqdn fqdn
-	read -e -p "Enter the public (external) server IP: " -i $publicip publicip
-	read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
+	read -e -p "$enterfqdn : " -i $fqdn fqdn
+	read -e -p "$enterip : " -i $publicip publicip
+	read -e -p "$installok" yn
 	case $yn in
 		[$yes]* ) break;;
 		[$no]* ) exit;
@@ -277,9 +277,9 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 
 # We'll store the passwords so that users can review them later if required.
 touch /root/passwords.txt;
-echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt;
-echo "MySQL Root Password: $password" >> /root/passwords.txt
-echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt
+echo "$zadminpassword : $zadminNewPass" >> /root/passwords.txt;
+echo "$mysqlrootpassword : $password" >> /root/passwords.txt
+echo "$mysqlpostfixpassword : $postfixpassword" >> /root/passwords.txt
 echo "IP Address: $publicip" >> /root/passwords.txt
 echo "Panel Domain: $fqdn" >> /root/passwords.txt
 
