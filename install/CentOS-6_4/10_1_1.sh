@@ -98,8 +98,8 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 while true; do
 read -e -p "$installcontinue " yn
 case $yn in
-[Yy]* ) break;;
-[Nn]* ) exit;
+[$yes]* ) break;;
+[$no]* ) exit;
 	esac
 done
 
