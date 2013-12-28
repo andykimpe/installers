@@ -24,3 +24,4 @@ logdebug="Génération journal d'installation et des informations de débogage .
 downloadzp="Téléchargement de ZPanel, SVP patientez, cela peut prendre plusieurs minutes, le programme d'installation continuera une fois que cette opération sera terminée!"
 enterfqdn="Entrez le nom de domaine complet du serveur (example: zpanel.votredomaine.com)"
 enterip="Entrez l'IP public (externe) du serveur"
+installok="ZPanel est maintenant prêt à être installer, voulez-vous continuer (o/n)"
