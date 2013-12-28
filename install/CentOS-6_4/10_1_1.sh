@@ -115,11 +115,11 @@ while true; do
 	read -e -p "Enter the public (external) server IP: " -i $publicip publicip
 	read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
 	case $yn in
-		[Yy]* ) break;;
-		[Nn]* ) exit;
+		[$yes]* ) break;;
+		[$no]* ) exit;
 	esac
 done
-
+exit
     #to remedy some problems of compatibility use of mirror centos.org to all users
     #CentOS-Base.repo
 
