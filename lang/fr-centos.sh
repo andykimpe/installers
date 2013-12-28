@@ -25,3 +25,4 @@ downloadzp="Téléchargement de ZPanel, SVP patientez, cela peut prendre plusieu
 enterfqdn="Entrez le nom de domaine complet du serveur (example: zpanel.votredomaine.com)"
 enterip="Entrez l'IP public (externe) du serveur"
 installok="ZPanel est maintenant prêt à être installer, voulez-vous continuer (o/n)"
+zadminpassword="Mot de Passe zadmin"
