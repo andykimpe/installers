@@ -3,6 +3,11 @@
 # OS VERSION: Fedora
 # ARCH: 32bit + 64bit
 
+# testing and ok
+
+# ovh Fedora Core 19 "Schrödinger’s Cat" 64 bit 100% work
+# fédora 17 64 bit testing
+
 ZPX_VERSION=10.1.1
 
 # Official ZPanel Automated Installation Script
