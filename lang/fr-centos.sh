@@ -32,3 +32,4 @@ ipaddress="Adresse IP"
 paneldomain="Domaine du Paneau"
 passwords="Mots de Passe"
 finishinstall1="Félicitations ZpanelX a été installé sur votre"
+finishinstall2="serveur. S'il vous plaît consulter le fichier journal laissé dans / root / pour'
