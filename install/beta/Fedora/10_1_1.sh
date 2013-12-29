@@ -131,7 +131,7 @@ rpm -qa
 
 # Removal of conflicting packages and services prior to ZPX installation.
 service sendmail stop
-yum -y remove bind-chroot
+yum -y remove bind-chroot bind-license
 
 # Install some standard utility packages required by the installer and/or ZPX.
 yum -y install sudo wget vim make zip unzip git chkconfig
