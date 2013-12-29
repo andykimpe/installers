@@ -62,10 +62,10 @@ else
 fi
 echo -e "$osdetect : $OS  $VER  $BITS"
 #warning the last version of centos and 6.5
-if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ; then
+if [ "$OS" = "CentOs" ] && [ "$VER" = "6.5" ] ; then
   echo "Ok."
 else
-  echo -e "$installsyserror CentOS 6.4."
+  echo -e "$installsyserror CentOS 6.5."
   exit 1;
 fi
 
@@ -277,11 +277,11 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 
 # We'll store the passwords so that users can review them later if required.
 touch /root/passwords.txt;
-echo "$zadminpassword : $zadminNewPass" >> /root/passwords.txt;
-echo "$mysqlrootpassword : $password" >> /root/passwords.txt
-echo "$mysqlpostfixpassword : $postfixpassword" >> /root/passwords.txt
-echo "IP Address: $publicip" >> /root/passwords.txt
-echo "Panel Domain: $fqdn" >> /root/passwords.txt
+echo "$zadminpassword : $zadminNewPass" >> /root/"$passwords".txt
+echo "$mysqlrootpassword : $password" >> /root/"$passwords".txt
+echo "$mysqlpostfixpassword : $postfixpassword" >> /root/"$passwords".txt
+echo "$ipaddress : $publicip" >> /root/"$passwords".txt
+echo "$paneldomain : $fqdn" >> /root/"$passwords".txt
 
 # Postfix specific installation tasks...
 sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini
@@ -408,8 +408,8 @@ rm -rf zp_install_cache/ zpanelx/
 
 # Advise the user that ZPanel is now installed and accessible.
 echo -e "##############################################################" &>/dev/tty
-echo -e "# Congratulations ZpanelX has now been installed on your     #" &>/dev/tty
-echo -e "# server. Please review the log file left in /root/ for      #" &>/dev/tty
+echo -e "# $finishinstall1     #" &>/dev/tty
+echo -e "# $finishinstall2      #" &>/dev/tty
 echo -e "# any errors encountered during installation.                #" &>/dev/tty
 echo -e "#                                                            #" &>/dev/tty
 echo -e "# Save the following information somewhere safe:             #" &>/dev/tty
