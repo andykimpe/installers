@@ -31,3 +31,4 @@ ipaddress="IP Address"
 paneldomain="Panel Domain"
 passwords="passwords"
 finishinstall1="Congratulations ZpanelX has now been installed on your"
+finishinstall2="server. Please review the log file left in /root/ for'
