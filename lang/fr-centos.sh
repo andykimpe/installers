@@ -28,3 +28,4 @@ installok="ZPanel est maintenant prêt à être installer, voulez-vous continuer
 zadminpassword="Mot de Passe zadmin"
 mysqlrootpassword="MySQL Root Password"
 mysqlpostfixpassword="Mot de Passe MySQL Postfix"
+ipaddress="Adresse IP"
