@@ -3,11 +3,6 @@
 # OS VERSION: Fedora
 # ARCH: 32bit + 64bit
 
-# testing and ok
-
-# ovh Fedora Core 19 "Schrödinger’s Cat" 64 bit 100% work no log file lol
-# fédora 17 64 bit minimal work log file http://pastebin.com/QDtTDYE6
-
 ZPX_VERSION=10.1.1
 
 # Official ZPanel Automated Installation Script
@@ -364,6 +359,7 @@ echo -e "##############################################################" &>/dev/
 echo -e "" &>/dev/tty
 
 # We now request that the user restarts their server...
+while true; do
 read -e -p "Restart your server now to complete the install (y/n)? " rsn
         case $rsn in
                 [Yy]* ) break;;
