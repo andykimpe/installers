@@ -5,8 +5,8 @@
 
 # testing and ok
 
-# ovh Fedora Core 19 "Schrödinger’s Cat" 64 bit 100% work
-# fédora 17 64 bit testing
+# ovh Fedora Core 19 "Schrödinger’s Cat" 64 bit 100% work no log file lol
+# fédora 17 64 bit minimal work log file http://pastebin.com/QDtTDYE6
 
 ZPX_VERSION=10.1.1
 
