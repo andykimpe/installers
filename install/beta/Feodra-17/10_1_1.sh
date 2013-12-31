@@ -128,7 +128,6 @@ cat > /etc/sysconfig/network <<EOF
 NETWORKING=yes
 HOSTNAME=$fqdn
 EOF
-systemctl restart network
 
 hostname $fdqn
 
@@ -142,7 +141,11 @@ systemctl stop iptables
 systemctl disable iptables
 systemctl stop ip6tables
 systemctl disable ip6tables
-systemctl disable sedmail
+systemctl stop sendmail
+systemctl disable sendmail
+systemctl restart network
+chkconfig --add network
+systemctl enable network
 
 # Start log creation.
 echo -e ""
@@ -152,7 +155,6 @@ echo -e ""
 rpm -qa
 
 # Removal of conflicting packages and services prior to ZPX installation.
-service sendmail stop
 yum -y remove bind-chroot bind-license
 
 # Install some standard utility packages required by the installer and/or ZPX.
@@ -372,15 +374,6 @@ systemctl restart mysqld
 systemctl restart named
 systemctl restart proftpd
 systemctl restart atd
-systemctl stop iptables
-systemctl disable iptables
-systemctl stop ip6tables
-systemctl disable ip6tables
-systemctl disable sedmail
-systemctl stop sedmail
-chkconfig --add network
-systemctl enable network
-systemctl restart network
 
 
 # We'll now remove the temporary install cache.
