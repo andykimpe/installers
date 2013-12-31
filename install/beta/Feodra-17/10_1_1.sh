@@ -137,7 +137,7 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
 
 # We now stop IPTables to ensure a fully automated and pain free installation.
-iptables-save > /etc/sysconfig
+iptables-save > /etc/sysconfig/iptables
 systemctl stop iptables
 systemctl disable iptables
 systemctl stop ip6tables
