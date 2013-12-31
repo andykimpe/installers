@@ -114,6 +114,7 @@ while true; do
 	read -e -p "$enterfqdn : " -i $fqdn fqdn
 	read -e -p "$enterip : " -i $publicip publicip
 	read -e -p "$installok" yn
+	read -e -p "enter your email adress" email
 	case $yn in
 		[$yes]* ) break;;
 		[$no]* ) exit;
@@ -276,6 +277,7 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 /etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass";
 /etc/zpanel/panel/bin/setso --set zpanel_domain $fqdn
 /etc/zpanel/panel/bin/setso --set server_ip $publicip
+/etc/zpanel/panel/bin/setso --set email_from_address $email
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
