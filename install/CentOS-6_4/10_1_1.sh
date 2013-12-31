@@ -274,10 +274,15 @@ mysql -u root -p$password -e "FLUSH PRIVILEGES";
 sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 
 # Set some ZPanel custom configuration settings (using. setso and setzadmin)
-/etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass";
+/etc/zpanel/panel/bin/setso --set dbversion $ZPX_VERSION
 /etc/zpanel/panel/bin/setso --set zpanel_domain $fqdn
 /etc/zpanel/panel/bin/setso --set server_ip $publicip
 /etc/zpanel/panel/bin/setso --set email_from_address $email
+/etc/zpanel/panel/bin/setso --set daemon_lastrun 0
+/etc/zpanel/panel/bin/setso --set daemon_dayrun 0
+/etc/zpanel/panel/bin/setso --set daemon_weekrun 0
+/etc/zpanel/panel/bin/setso --set daemon_monthrun 0
+/etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass"
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
