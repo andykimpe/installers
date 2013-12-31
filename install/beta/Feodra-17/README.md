@@ -24,6 +24,59 @@ your roster should be like this
 
 https://github.com/andykimpe/installers/raw/master/install/beta/Feodra-17/service.txt
 
+if this is not the case perform the following command
+
+systemctl stop iptables
+
+systemctl disable iptables
+
+systemctl stop ip6tables
+
+systemctl disable ip6tables
+
+systemctl stop sendmail
+
+systemctl disable sendmail
+
+systemctl restart network
+
+chkconfig --add network
+
+chkconfig network on
+
+systemctl enable httpd
+
+systemctl enable postfix
+
+systemctl enable dovecot
+
+systemctl enable crond
+
+systemctl enable mysqld
+
+systemctl enable named
+
+systemctl enable proftpd
+
+systemctl restart httpd
+
+systemctl restart postfix
+
+systemctl restart dovecot
+
+systemctl restart crond
+
+systemctl restart mysqld
+
+systemctl restart named
+
+systemctl restart proftpd
+
+systemctl restart atd
+
+restart the server and check the list again
+
+
 après l'installation vérifier la liste des service actif
 
 systemctl list-unit-files
@@ -32,3 +85,54 @@ votre liste de service doit étre comme ceci
 
 https://github.com/andykimpe/installers/raw/master/install/beta/Feodra-17/service.txt
 
+si ce n'est pas le cas exécuter les commande suivante
+
+systemctl stop iptables
+
+systemctl disable iptables
+
+systemctl stop ip6tables
+
+systemctl disable ip6tables
+
+systemctl stop sendmail
+
+systemctl disable sendmail
+
+systemctl restart network
+
+chkconfig --add network
+
+chkconfig network on
+
+systemctl enable httpd
+
+systemctl enable postfix
+
+systemctl enable dovecot
+
+systemctl enable crond
+
+systemctl enable mysqld
+
+systemctl enable named
+
+systemctl enable proftpd
+
+systemctl restart httpd
+
+systemctl restart postfix
+
+systemctl restart dovecot
+
+systemctl restart crond
+
+systemctl restart mysqld
+
+systemctl restart named
+
+systemctl restart proftpd
+
+systemctl restart atd
+
+redémarrer le serveur et vérifier a nouveau la liste
