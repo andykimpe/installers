@@ -236,7 +236,7 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 # MySQL specific installation tasks...
 service mysql start
 until mysql -u root -e ";" > /dev/null 2>&1 ; do
-read -s -p "Enter Your current of mysql root Password: " password
+read -s -p "Enter Your current root Password of mysql : " password
 sqlinstall=yes
 done
 if [ "sqlinstall" != "yes" ] ; then
