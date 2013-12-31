@@ -159,6 +159,7 @@ systemctl disable sendmail
 systemctl restart network
 chkconfig --add network
 chkconfig network on
+yum -y remove sendmail
 
 # Start log creation.
 echo -e ""
