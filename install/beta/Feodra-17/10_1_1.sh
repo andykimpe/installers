@@ -116,11 +116,19 @@ while true; do
 done
 
 # patch apache hostname
+# warning /etc/resolv.conf
+# No nameservers found; try putting DNS servers into your
+# ifcfg files in /etc/sysconfig/network-scripts like so:
+#
+# DNS1=xxx.xxx.xxx.xxx
+# DNS2=xxx.xxx.xxx.xxx
+# DOMAIN=lab.foo.com bar.foo.com
 chmod 777 /etc/sysconfig/network
 cat > /etc/sysconfig/network <<EOF
 NETWORKING=yes
 HOSTNAME=$fqdn
 EOF
+systemctl restart network
 
 hostname $fdqn
 
