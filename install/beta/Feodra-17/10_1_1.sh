@@ -53,6 +53,18 @@ echo "Sorry, this installer only supports the installation of ZPanel on Fedora 1
   exit 1;
 fi
 
+
+
+networkmanagergoma=$(rpm -q --queryformat '%{NAME}\n'  NetworkManager-gnome)
+
+if [ "$networkmanagergoma" = "NetworkManager-gnome" ] ; then
+echo "Please remove NetworkManager-gnome"
+echo "reconfigure ifcfg files in /etc/sysconfig/network-scripts"
+echo "and restart the installer"
+  exit 1;
+fi
+
+
 # Set custom logging methods so we create a log file in the current working directory.
 logfile=$$.log
 exec > >(tee $logfile)
@@ -80,7 +92,7 @@ echo -e "# If you are installing on a physical machine where the OS #"
 echo -e "# has been installed by yourself please make sure you only #"
 echo -e "# installed CentOS with no extra packages. #"
 echo -e "# #"
-echo -e "# If you selected additional options during the CentOS #"
+echo -e "# If you selected additional options during the Fedora #"
 echo -e "# install please consider reinstalling without them. #"
 echo -e "# #"
 echo -e "##############################################################"
