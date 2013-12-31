@@ -143,7 +143,6 @@ systemctl disable iptables
 systemctl stop ip6tables
 systemctl disable ip6tables
 systemctl disable sedmail
-systemctl stop sedmail
 
 # Start log creation.
 echo -e ""
