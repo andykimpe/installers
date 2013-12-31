@@ -37,23 +37,27 @@ echo "You appear to have a control panel already installed on your server; This 
     exit
 fi
 
-# Ensure the installer is launched and can only be launched on Ubuntu 12.04
+# Ensure the installer
+if [ -f /usr/bin/apt-get ]; then
+apt-get update &> /dev/null
+apt-get -y install base-files debian-edu-config  &> /dev/null
+else
+echo "Sorry, this installer only supports the installation of ZPanel on Debian 7."
+  exit 1;
+fi
 BITS=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
-if [ -f /etc/lsb-release ]; then
-OS=$(cat /etc/lsb-release | grep DISTRIB_ID | sed 's/^.*=//')
-  VER=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | sed 's/^.*=//')
+if [ -f /etc/os-release ]; then
+OS=Debian
+  VER=$(cat /etc/os-release | grep VERSION_ID | sed 's/^.*="//' | sed 's/"//')
 else
 OS=$(uname -s)
   VER=$(uname -r)
 fi
 echo "Detected : $OS $VER $BITS"
-if [ "$OS" = "Debian" ] && [ "$VER" = "7" ] || [ "$VER" = "7.0" ]; then
+if [ "$OS" = "Debian" ] && [ "$VER" = "7" ] ; then
 echo "Ok."
 else
 echo "Sorry, this installer only supports the installation of ZPanel on Debian 7."
-echo "if your system and Debian 7 please execut"
-echo "apt-get -y install lsb lsb-base lsb-core lsb-release build-essential"
-echo "and restart the script"
   exit 1;
 fi
 
@@ -231,6 +235,9 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 
 # MySQL specific installation tasks...
 service mysql start
+until mysql -u root -e ";" > /dev/null 2>&1 ; do
+read -s -p "Enter Your current of mysql root Password: " password
+done
 mysqladmin -u root password $password
 mysql -u root -p$password -e "DROP DATABASE test";
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
@@ -268,11 +275,11 @@ ln -s /etc/zpanel/configs/postfix/vacation.pl /var/spool/vacation/vacation.pl
 postmap /etc/postfix/transport
 chown -R vacation:vacation /var/spool/vacation
 if ! grep -q "127.0.0.1 autoreply.$fqdn" /etc/hosts; then echo "127.0.0.1 autoreply.$fqdn" >> /etc/hosts; fi
-sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf
-sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf
 rm -rf /etc/postfix/main.cf /etc/postfix/master.cf
 ln -s /etc/zpanel/configs/postfix/master.cf /etc/postfix/master.cf
 ln -s /etc/zpanel/configs/postfix/main.cf /etc/postfix/main.cf
+sed -i "s|myhostname = control.yourdomain.com|myhostname = $fqdn|" /etc/postfix/main.cf
+sed -i "s|mydomain = control.yourdomain.com|mydomain = $fqdn|" /etc/postfix/main.cf
 sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-relay_domains_maps.cf
 sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_alias_maps.cf
 sed -i "s|password \= postfix|password \= $postfixpassword|" /etc/zpanel/configs/postfix/mysql-virtual_domains_maps.cf
@@ -313,7 +320,7 @@ sed -i 's|DocumentRoot "/var/www/html"|DocumentRoot "/etc/zpanel/panel"|' /etc/a
 sed -i 's|Include sites-enabled/||' /etc/apache2/apache2.conf
 chown -R www-data:www-data /var/zpanel/temp/
 if ! grep -q "127.0.0.1 "$fqdn /etc/hosts; then echo "127.0.0.1 "$fqdn >> /etc/hosts; fi
-if ! grep -q "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" /etc/sudoers; then echo "apache ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" >> /etc/sudoers; fi
+if ! grep -q "www-data ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" /etc/sudoers; then echo "www-data ALL=NOPASSWD: /etc/zpanel/panel/bin/zsudo" >> /etc/sudoers; fi
 a2enmod rewrite
 service apache2 restart
 
