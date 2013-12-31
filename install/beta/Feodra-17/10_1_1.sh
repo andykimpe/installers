@@ -378,6 +378,7 @@ systemctl stop ip6tables
 systemctl disable ip6tables
 systemctl disable sedmail
 systemctl stop sedmail
+chkconfig --add network
 systemctl enable network
 systemctl restart network
 
