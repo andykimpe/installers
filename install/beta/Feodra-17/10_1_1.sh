@@ -158,7 +158,7 @@ systemctl stop sendmail
 systemctl disable sendmail
 systemctl restart network
 chkconfig --add network
-systemctl enable network
+chkconfig network on
 
 # Start log creation.
 echo -e ""
