@@ -20,8 +20,8 @@ For testing the installer install Fédora Minimal and enter command
 
 Pour tester cette installateur installer Fédora Minimale et entrée les commande suivante
 
-yum -y update
+```yum -y update```
 
-yum -y install bash wget
+```yum -y install bash wget```
 
-wget https://raw.github.com/andykimpe/installers/master/install/beta/Feodra-17/10_1_1.sh && bash 10_1_1.sh
+```wget https://raw.github.com/andykimpe/installers/master/install/beta/Feodra-17/10_1_1.sh && bash 10_1_1.sh```
