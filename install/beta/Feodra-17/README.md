@@ -15,14 +15,23 @@ yum -y update
 yum -y install bash wget
 
 iptables-save > /etc/sysconfig/iptables
+
 systemctl stop iptables
+
 systemctl disable iptables
+
 systemctl stop ip6tables
+
 systemctl disable ip6tables
+
 systemctl stop sendmail
+
 systemctl disable sendmail
+
 systemctl restart network
+
 chkconfig --add network
+
 systemctl enable network
 
 wget https://raw.github.com/andykimpe/installers/master/install/beta/Feodra-17/10_1_1.sh && bash 10_1_1.sh
