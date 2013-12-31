@@ -119,15 +119,15 @@ while true; do
         tzselect
         tz=`cat /etc/timezone`
         # patch hostname for apache 2.4 in fedora http://www.yodi.sg/fix-httpd-apache-wont-start-problem-in-fedora-18/
-        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn i &>/dev/tty
+        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com) : " -i $fqdn i &>/dev/tty
         while [ $i == "localhost.localdomain" ] || [ $i == "localhost" ]; do
         echo "error your FQND shall not be localhost.localdomain or localhost"
         echo "Please re enter your FQND"
-        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn i &>/dev/tty
+        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com) : " -i $fqdn i &>/dev/tty
         done
         fqdn=$i
-        read -e -p "Enter the public (external) server IP: " -i $publicip publicip &>/dev/tty
-        read -e -p "Enter your Email address" email &>/dev/tty
+        read -e -p "Enter the public (external) server IP : " -i $publicip publicip &>/dev/tty
+        read -e -p "Enter your Email address : " email &>/dev/tty
         read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
         case $yn in
                 [Yy]* ) break;;
