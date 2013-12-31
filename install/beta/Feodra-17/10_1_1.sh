@@ -226,6 +226,9 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 
 # MySQL specific installation tasks...
 systemctl start mysqld
+until mysql -u root -e ";" > /dev/null 2>&1 ; do
+read -s -p "Enter Your current of mysql root Password: " password
+done
 mysqladmin -u root password "$password"
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User=''";
