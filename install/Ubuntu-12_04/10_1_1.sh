@@ -129,6 +129,7 @@ while true; do
 	tz=`cat /etc/timezone`
 	read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn fqdn
 	read -e -p "Enter the public (external) server IP: " -i $publicip publicip
+	read -e -p "Enter your Email address : " email
     read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
     case $yn in
         [Yy]* ) break;;
@@ -254,9 +255,15 @@ mysql -u root -p$password -e "FLUSH PRIVILEGES";
 sed -i "/ssl-key=/a \secure-file-priv = /var/tmp" /etc/mysql/my.cnf
 
 # Set some ZPanel custom configuration settings (using. setso and setzadmin)
-setzadmin --set "$zadminNewPass";
+/etc/zpanel/panel/bin/setso --set dbversion $ZPX_VERSION
 /etc/zpanel/panel/bin/setso --set zpanel_domain $fqdn
 /etc/zpanel/panel/bin/setso --set server_ip $publicip
+/etc/zpanel/panel/bin/setso --set email_from_address $email
+/etc/zpanel/panel/bin/setso --set daemon_lastrun 0
+/etc/zpanel/panel/bin/setso --set daemon_dayrun 0
+/etc/zpanel/panel/bin/setso --set daemon_weekrun 0
+/etc/zpanel/panel/bin/setso --set daemon_monthrun 0
+/etc/zpanel/panel/bin/setzadmin --set "$zadminNewPass"
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
