@@ -55,9 +55,9 @@ fi
 
 
 
-networkmanagergoma=$(rpm -q --queryformat '%{NAME}\n'  NetworkManager-gnome)
+networkmanagergome=$(rpm -q --queryformat '%{NAME}\n'  NetworkManager-gnome)
 
-if [ "$networkmanagergoma" = "NetworkManager-gnome" ] ; then
+if [ "$networkmanagergome" = "NetworkManager-gnome" ] ; then
 echo "Please remove NetworkManager-gnome"
 echo "reconfigure ifcfg files in /etc/sysconfig/network-scripts"
 echo "and restart the installer"
@@ -228,8 +228,11 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 systemctl start mysqld
 until mysql -u root -e ";" > /dev/null 2>&1 ; do
 read -s -p "Enter Your current of mysql root Password: " password
+sqlinstall=yes
 done
-mysqladmin -u root password "$password"
+if [ "sqlinstall" != "yes" ] ; then
+mysqladmin -u root password $password
+fi
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User=''";
 mysql -u root -p$password -e "DROP DATABASE test";
