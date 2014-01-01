@@ -36,6 +36,7 @@ txt_enterfqdn="Entrez le nom de domaine complet du serveur (example: zpanel.votr
 txt_enterip="Entrez l'IP public (externe) du serveur"
 txt_email="Entrez votre addrese email"
 txt_installok="ZPanel est maintenant prêt à être installer, voulez-vous continuer (o/n)"
+txt_aptitude="Mise à jour de Repos Aptitude"
 txt_zadminpassword="Mot de Passe zadmin"
 txt_mysqlrootpassword="Mot de passe MySQL Root"
 txt_mysqlpostfixpassword="Mot de Passe MySQL Postfix"
