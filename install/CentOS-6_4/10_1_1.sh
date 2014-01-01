@@ -87,7 +87,7 @@ passwordgen() {
 
 # Display the 'welcome' splash/user warning info..
 echo -e '**************************************************************************'
-echo -e "$txt_gpl1 CentOS 6.4, 6.5"
+echo -e "$txt_gpl1 CentOS 6.5"
 echo -e "$txt_gpl"
 echo -e '**************************************************************************'
 
@@ -112,10 +112,10 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 while true; do
 	tzselect
 	tz=`cat /etc/timezone`
-	read -e -p "$txt_enterfqdn : " -i $fqdn fqdn
-	read -e -p "$txt_enterip : " -i $publicip publicip
+	read -e -p "$txt_enterfqdn : " -i $fqdn fqdn &>/dev/tty
+	read -e -p "$txt_enterip : " -i $publicip publicip &>/dev/tty
+	read -e -p "$txt_email" email &>/dev/tty
 	read -e -p "$txt_installok" yn
-	read -e -p "$txt_email" email
 	case $yn in
 		[$txt_yes]* ) break;;
 		[$txt_no]* ) exit;
