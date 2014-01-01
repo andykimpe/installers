@@ -75,44 +75,65 @@ exec 2>&1
 
 # Check that ZPanel has been detected on the server if not, we'll exit!
 if [ ! -d /etc/zpanel ]; then
-    echo "ZPanel has not been detected on this server, the upgrade script can therefore not continue!"
+    echo "$txt_zpanelnotfound"
     exit 1;
 fi
 
 # Lets check that the user wants to continue first and recommend they have a backup!
 echo ""
-echo "The ZPanel Upgrade script is now ready to start, we recommend that before"
-echo "continuing that you first backup your ZPanel server to enable a restore"
-echo "in the event that something goes wrong during the upgrade process!"
+echo "$txt_upgrade1"
+echo "$txt_upgrade2"
+echo "$txt_upgrade3"
 echo ""
 while true; do
-read -e -p "Would you like to continue with the upgrade now (y/n)? " yn
+read -e -p "$txt_upgrade4" yn
     case $yn in
-		[Yy]* ) break;;
-		[Nn]* ) exit;
+		[$txt_yes]* ) break;;
+		[$txt_no]* ) exit;
 	esac
 done
 
-# Now we'll ask upgrade specific questions...
-echo -e "Please enter the version of which you'd like to upgrade ZPanel to, for example 10-1-1"
-read -e -p "Upgrade to version:" -i "10-1-1" upgradeto
-echo -e ""
-echo -e "Please provide your current MySQL root password (this can found in /etc/zpanel/panel/cnf/db.php)"
-read -esp "MySQL root password: " -i ""
+# Now we'll ask upgrade specific automatic detection...
+if [ "$ZPX_VERSION_ACTUAL" = "10.0.0" ] ; then
+upgradeto=10-0-1
+ZPX_VERSIONGIT=10.0.1
+fi
+
+if [ "$ZPX_VERSION_ACTUAL" = "10.0.1" ] ; then
+upgradeto=10-0-2
+ZPX_VERSIONGIT=10.0.2
+fi
+
+if [ "$ZPX_VERSION_ACTUAL" = "10.0.2" ] ; then
+upgradeto=10-1-0
+ZPX_VERSIONGIT=10.1.0
+fi
+
+if [ "$ZPX_VERSION_ACTUAL" = "10.1.0" ] ; then
+upgradeto=10-1-1
+ZPX_VERSIONGIT=10.1.1
+fi
+
+
+#echo -e "Please enter the version of which you'd like to upgrade ZPanel to, for example 10-1-1"
+#read -e -p "Upgrade to version:" -i "10-1-1" upgradeto
+#echo -e ""
+echo -e "$txt_upgrade5"
+read -esp "$txt_mysqlrootpassword : " -i ""
 echo -e ""
 while true; do
-	read -e -p "ZPanel will now update, are you sure (y/n)? " yn
+	read -e -p "$txt_upgrade6" yn
 	case $yn in
-		 [Yy]* ) break;;
-		 [Nn]* ) exit;
+		 [$txt_yes]* ) break;;
+		 [$txt_no]* ) exit;
 	esac
 done
 
 # We now clone the latest ZPX software from GitHub
-echo "Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo "$txt_downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
-git checkout $ZPX_VERSION
+git checkout $ZPX_VERSIONGIT
 mkdir ../zp_install_cache/
 git checkout-index -a -f --prefix=../zp_install_cache/
 cd ../zp_install_cache/
@@ -155,7 +176,7 @@ rm -rf zpanelx/ zp_install_cache/
 # We now display to the user(s) update SQL/BASH upgrade script messages etc.
 echo -e ""
 echo -e "###################################################################"
-echo -e "# Please read and note down any update errors and messages below: #"
+echo -e "# $txt_upgrade7 #"
 echo -e "# $updatemessage #"
 echo -e "#                                                                 #"
 echo -e "###################################################################"
@@ -163,7 +184,7 @@ echo -e ""
 
 # We now recommend  that the user restarts their server...
 while true; do
-read -e -p "Restart your server now to complete the upgrade (y/n)? " rsn
+read -e -p "$txt_upgrade8" rsn
 	case $rsn in
 		[Yy]* ) break;;
 		[Nn]* ) exit;
