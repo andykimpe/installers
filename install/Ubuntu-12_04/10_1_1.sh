@@ -48,7 +48,9 @@ fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-    echo "$txt_panel"
+    echo -e "$txt_panel1"
+    echo -e "$txt_panel2"
+    echo -e "$txt_panel3"
     exit
 fi
 
