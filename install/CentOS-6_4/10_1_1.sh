@@ -35,19 +35,19 @@ read -e -p "? " lang
    esac
 done
 
-wget -q https://raw.github.com/andykimpe/installers/master/lang/$ZPXISOLANGUAGE-centos.sh -P /root
-chmod +x /root/$ZPXISOLANGUAGE-centos.sh
-source $ZPXISOLANGUAGE-centos.sh
+wget -q https://raw.github.com/andykimpe/installers/master/lang/"$ZPXISOLANGUAGE".sh -P /root
+chmod +x /root/"$ZPXISOLANGUAGE".sh
+source "$ZPXISOLANGUAGE".sh
 
 
 if [ $UID -ne 0 ]; then
-    echo -e "$installroot"
+    echo -e "$txt_installroot"
   exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-    echo -e "$panel"
+    echo -e "$txt_panel"
     exit
 fi
 
@@ -60,12 +60,12 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo -e "$osdetect : $OS  $VER  $BITS"
+echo -e "$txt_osdetect : $OS  $VER  $BITS"
 #warning the last version of centos and 6.5
 if [ "$OS" = "CentOs" ] && [ "$VER" = "6.5" ] ; then
   echo "Ok."
 else
-  echo -e "$installsyserror CentOS 6.5."
+  echo -e "$txt_installsyserror CentOS 6.5."
   exit 1;
 fi
 
@@ -87,7 +87,8 @@ passwordgen() {
 
 # Display the 'welcome' splash/user warning info..
 echo -e '**************************************************************************'
-echo -e "$gpl"
+echo -e "$txt_gpl1 CentOS 6.4, 6.5"
+echo -e "$txt_gpl"
 echo -e '**************************************************************************'
 
 # Set some installation defaults/auto assignments
@@ -96,10 +97,10 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
 # Lets check that the user wants to continue first...
 while true; do
-read -e -p "$installcontinue " yn
+read -e -p "$txt_installcontinue " yn
 case $yn in
-[$yes]* ) break;;
-[$no]* ) exit;
+[$txt_yes]* ) break;;
+[$txt_no]* ) exit;
 	esac
 done
 
@@ -111,13 +112,13 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 while true; do
 	tzselect
 	tz=`cat /etc/timezone`
-	read -e -p "$enterfqdn : " -i $fqdn fqdn
-	read -e -p "$enterip : " -i $publicip publicip
-	read -e -p "$installok" yn
-	read -e -p "enter your email adress" email
+	read -e -p "$txt_enterfqdn : " -i $fqdn fqdn
+	read -e -p "$txt_enterip : " -i $publicip publicip
+	read -e -p "$txt_installok" yn
+	read -e -p "$txt_email" email
 	case $yn in
-		[$yes]* ) break;;
-		[$no]* ) exit;
+		[$txt_yes]* ) break;;
+		[$txt_no]* ) exit;
 	esac
 done
 exit
@@ -190,7 +191,7 @@ chkconfig iptables off
 
 # Start log creation.
 echo -e ""
-echo -e "# $logdebug"
+echo -e "# $txt_logdebug"
 uname -a
 echo -e ""
 rpm -qa
@@ -204,7 +205,7 @@ yum -y install sudo wget vim make zip unzip git chkconfig
 
 
 # We now clone the ZPX software from GitHub
-echo "$downloadzp"
+echo "$txt_downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
 git checkout $ZPX_VERSION
@@ -286,12 +287,12 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
-touch /root/passwords.txt;
-echo "$zadminpassword : $zadminNewPass" >> /root/"$passwords".txt
-echo "$mysqlrootpassword : $password" >> /root/"$passwords".txt
-echo "$mysqlpostfixpassword : $postfixpassword" >> /root/"$passwords".txt
-echo "$ipaddress : $publicip" >> /root/"$passwords".txt
-echo "$paneldomain : $fqdn" >> /root/"$passwords".txt
+touch /root/"$txt_passwords".txt;
+echo "$txt_zadminpassword : $zadminNewPass" >> /root/"$passwords".txt
+echo "$txt_mysqlrootpassword : $password" >> /root/"$passwords".txt
+echo "$txt_mysqlpostfixpassword : $postfixpassword" >> /root/"$passwords".txt
+echo "$txt_ipaddress : $publicip" >> /root/"$passwords".txt
+echo "$txt_paneldomain : $fqdn" >> /root/"$passwords".txt
 
 # Postfix specific installation tasks...
 sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini
@@ -412,6 +413,16 @@ service proftpd start
 service atd start
 php /etc/zpanel/panel/bin/daemon.php
 
+# services restart after daemon required.
+service httpd restart
+service postfix restart
+service dovecot restart
+service crond resart
+service mysqld restart
+service named restart
+service proftpd restart
+service atd restart
+
 # We'll now remove the temporary install cache.
 cd ../
 rm -rf zp_install_cache/ zpanelx/
@@ -420,26 +431,26 @@ rm -rf zp_install_cache/ zpanelx/
 echo -e "##############################################################" &>/dev/tty
 echo -e "# $finishinstall1     #" &>/dev/tty
 echo -e "# $finishinstall2      #" &>/dev/tty
-echo -e "# any errors encountered during installation.                #" &>/dev/tty
+echo -e "# $txt_finishinstall3                #" &>/dev/tty
 echo -e "#                                                            #" &>/dev/tty
-echo -e "# Save the following information somewhere safe:             #" &>/dev/tty
-echo -e "# MySQL Root Password    : $password" &>/dev/tty
-echo -e "# MySQL Postfix Password : $postfixpassword" &>/dev/tty
-echo -e "# ZPanelX Username       : zadmin                            #" &>/dev/tty
-echo -e "# ZPanelX Password       : $zadminNewPass" &>/dev/tty
+echo -e "# $txt_finishinstall4             #" &>/dev/tty
+echo -e "# $txt_mysqlrootpassword    : $password" &>/dev/tty
+echo -e "# $txt_mysqlpostfixpassword : $postfixpassword" &>/dev/tty
+echo -e "# $txt_finishinstall5       : zadmin                            #" &>/dev/tty
+echo -e "# $txt_finishinstall6       : $zadminNewPass" &>/dev/tty
 echo -e "#                                                            #" &>/dev/tty
-echo -e "# ZPanelX Web login can be accessed using your server IP     #" &>/dev/tty
-echo -e "# inside your web browser.                                   #" &>/dev/tty
+echo -e "# $txt_finishinstall7     #" &>/dev/tty
+echo -e "# $txt_finishinstall8                                   #" &>/dev/tty
 echo -e "#                                                            #" &>/dev/tty
 echo -e "##############################################################" &>/dev/tty
 echo -e "" &>/dev/tty
 
 # We now request that the user restarts their server...
 while true; do
-read -e -p "Restart your server now to complete the install (y/n)? " rsn
+read -e -p "$txt_finishinstall9" rsn
 	case $rsn in
-		[Yy]* ) break;;
-		[Nn]* ) exit;
+		[$txt_yes]* ) break;;
+		[$txt_no]* ) exit;
 	esac
 done
 shutdown -r now
