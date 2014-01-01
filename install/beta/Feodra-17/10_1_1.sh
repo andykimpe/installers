@@ -23,17 +23,32 @@ ZPX_VERSION=10.1.1
 #
 
 # First we check if the user is 'root' before allowing installation to commence
+while true; do
+echo "To continue in English, type e"
+echo "Pour continuer en Français, tapez f"
+echo "To Exit / Pour quitter : CTRL-C"
+read -e -p "? " lang
+   case $lang in
+     [e]* ) ZPXISOLANGUAGE=en && break;;
+     [f]* ) ZPXISOLANGUAGE=fr && break;;
+   esac
+done
+
+wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+chmod +x /root/$ZPXISOLANGUAGE.sh
+source $ZPXISOLANGUAGE.sh
+
+
+
+# First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
-echo "Installed failed! To install you must be logged in as 'root', please try again"
-  exit 1
+echo "$installroot"
+    exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-echo "You appear to have a control panel already installed on your server; This installer"
-    echo "is designed to install and configure ZPanel on a clean OS installation only!"
-    echo ""
-    echo "Please re-install your OS before attempting to install using this script."
+echo "$panel"
     exit
 fi
 
@@ -49,13 +64,13 @@ echo "Detected : $OS $VER $BITS"
 if [ "$OS" = "Fedora" ] && [ "$VER" = "17" ] ; then
 echo "Ok."
 else
-echo "Sorry, this installer only supports the installation of ZPanel on Fedora 17."
+echo "$installsyserror Fedora 17."
   exit 1;
 fi
 
 
 
-networkmanagergome=$(rpm -q --queryformat '%{NAME}\n'  NetworkManager-gnome)
+networkmanagergome=$(rpm -q --queryformat '%{NAME}\n' NetworkManager-gnome)
 
 if [ "$networkmanagergome" = "NetworkManager-gnome" ] ; then
 echo "Please remove NetworkManager-gnome"
@@ -82,20 +97,10 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-echo -e "##############################################################"
-echo -e "# Welcome to the Official ZPanelX Installer for Fedora 17 #"
-echo -e "# #"
-echo -e "# Please make sure your VPS provider hasn't pre-installed #"
-echo -e "# any packages required by ZPanelX. #"
-echo -e "# #"
-echo -e "# If you are installing on a physical machine where the OS #"
-echo -e "# has been installed by yourself please make sure you only #"
-echo -e "# installed CentOS with no extra packages. #"
-echo -e "# #"
-echo -e "# If you selected additional options during the Fedora #"
-echo -e "# install please consider reinstalling without them. #"
-echo -e "# #"
-echo -e "##############################################################"
+echo -e '*****************************************************************'
+echo -e "$gpl1 Fedora 17"
+echo -e "$gpl"
+echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
 fqdn=`/bin/hostname`
@@ -103,10 +108,10 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
 # Lets check that the user wants to continue first...
 while true; do
-read -e -p "Would you like to continue (y/n)? " yn
+read -e -p "$txt_installcontinue" yn
     case $yn in
-            [Yy]* ) break;;
-                [Nn]* ) exit;
+            [$txt_yes]* ) break;;
+            [$txt_no]* ) exit;
         esac
 done
 
@@ -116,22 +121,22 @@ echo "echo \$TZ > /etc/timezone" >> /usr/bin/tzselect
 
 # Installer options
 while true; do
-        tzselect
+tzselect
         tz=`cat /etc/timezone`
         # patch hostname for apache 2.4 in fedora http://www.yodi.sg/fix-httpd-apache-wont-start-problem-in-fedora-18/
-        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com) : " -i $fqdn i &>/dev/tty
+        read -e -p "$txt_enterfqdn : " -i $fqdn i &>/dev/tty
         while [ $i == "localhost.localdomain" ] || [ $i == "localhost" ]; do
-        echo "error your FQND shall not be localhost.localdomain or localhost"
+echo "error your FQND shall not be localhost.localdomain or localhost"
         echo "Please re enter your FQND"
-        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com) : " -i $fqdn i &>/dev/tty
+        read -e -p "$txt_enterfqdn : " -i $fqdn i &>/dev/tty
         done
-        fqdn=$i
-        read -e -p "Enter the public (external) server IP : " -i $publicip publicip &>/dev/tty
-        read -e -p "Enter your Email address : " email &>/dev/tty
-        read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
+fqdn=$i
+        read -e -p "$txt_enterip : " -i $publicip publicip &>/dev/tty
+        read -e -p "$txt_email : " email &>/dev/tty
+        read -e -p "$txt_installok" yn
         case $yn in
-                [Yy]* ) break;;
-                [Nn]* ) exit;
+                [$txt_yes]* ) break;;
+                [$txt_no]* ) exit;
         esac
 done
 
@@ -170,7 +175,7 @@ yum -y remove sendmail
 
 # Start log creation.
 echo -e ""
-echo -e "# Generating installation log and debug info..."
+echo -e "# $txt_logdebug"
 uname -a
 echo -e ""
 rpm -qa
@@ -183,7 +188,7 @@ yum -y install sudo wget vim make zip unzip git chkconfig
 
 
 # We now clone the ZPX software from GitHub
-echo "Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo "$txt_downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
 git checkout $ZPX_VERSION
@@ -228,7 +233,7 @@ ln -s /etc/zpanel/panel/bin/setzadmin /usr/bin/setzadmin
 chmod +x /etc/zpanel/panel/bin/zppy
 chmod +x /etc/zpanel/panel/bin/setso
 cp -R /etc/zpanel/panel/etc/build/config_packs/centos_6_3/. /etc/zpanel/configs/
-sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$password|" /etc/zpanel/panel/cnf/db.php
+# password configure after check connexion
 cc -o /etc/zpanel/panel/bin/zsudo /etc/zpanel/configs/bin/zsudo.c
 sudo chown root /etc/zpanel/panel/bin/zsudo
 chmod +s /etc/zpanel/panel/bin/zsudo
@@ -237,8 +242,9 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 systemctl start mysqld
 mysqladmin -u root password $password
 until mysql -u root -p$password -e ";" > /dev/null 2>&1 ; do
-read -s -p "Enter Your current root Password of mysql : " password
+read -s -p "$txt_mysqlpassworderror : " password
 done
+sed -i "s|YOUR_ROOT_MYSQL_PASSWORD|$password|" /etc/zpanel/panel/cnf/db.php
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User=''";
 mysql -u root -p$password -e "DROP DATABASE test";
@@ -261,12 +267,12 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
-touch /root/passwords.txt;
-echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt;
-echo "MySQL Root Password: $password" >> /root/passwords.txt
-echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt
-echo "IP Address: $publicip" >> /root/passwords.txt
-echo "Panel Domain: $fqdn" >> /root/passwords.txt
+touch /root/"$txt_passwords".txt;
+echo "$txt_zadminpassword : $zadminNewPass" >> /root/"$txt_passwords"
+echo "$txt_mysqlrootpassword : $password" >> /root/"$txt_passwords"
+echo "$txt_mysqlpostfixpassword : $postfixpassword" >> /root/"$txt_passwords"
+echo "$txt_ipaddress : $publicip" >> /root/"$txt_passwords"
+echo "$txt_paneldomain : $fqdn" >> /root/"$txt_passwords"
 
 # Postfix specific installation tasks...
 sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini
@@ -412,28 +418,28 @@ rm -rf zp_install_cache/ zpanelx/
 
 # Advise the user that ZPanel is now installed and accessible.
 echo -e "##############################################################" &>/dev/tty
-echo -e "# Congratulations ZpanelX has now been installed on your #" &>/dev/tty
-echo -e "# server. Please review the log file left in /root/ for #" &>/dev/tty
-echo -e "# any errors encountered during installation. #" &>/dev/tty
+echo -e "# $txt_finishinstall1 #" &>/dev/tty
+echo -e "# $txt_finishinstall2 #" &>/dev/tty
+echo -e "# $txt_finishinstall3 #" &>/dev/tty
 echo -e "# #" &>/dev/tty
-echo -e "# Save the following information somewhere safe: #" &>/dev/tty
-echo -e "# MySQL Root Password : $password" &>/dev/tty
-echo -e "# MySQL Postfix Password : $postfixpassword" &>/dev/tty
-echo -e "# ZPanelX Username : zadmin #" &>/dev/tty
-echo -e "# ZPanelX Password : $zadminNewPass" &>/dev/tty
+echo -e "# $txt_finishinstall4 #" &>/dev/tty
+echo -e "# $txt_mysqlrootpassword : $password" &>/dev/tty
+echo -e "# $txt_mysqlpostfixpassword : $postfixpassword" &>/dev/tty
+echo -e "# $txt_finishinstall5 : zadmin #" &>/dev/tty
+echo -e "# $txt_finishinstall6 : $zadminNewPass" &>/dev/tty
 echo -e "# #" &>/dev/tty
-echo -e "# ZPanelX Web login can be accessed using your server IP #" &>/dev/tty
-echo -e "# inside your web browser. #" &>/dev/tty
+echo -e "# $txt_finishinstall7 #" &>/dev/tty
+echo -e "# $txt_finishinstall8 #" &>/dev/tty
 echo -e "# #" &>/dev/tty
 echo -e "##############################################################" &>/dev/tty
 echo -e "" &>/dev/tty
 
 # We now request that the user restarts their server...
+read -e -p "$txt_finishinstall9" rsn
 while true; do
-read -e -p "Restart your server now to complete the install (y/n)? " rsn
-        case $rsn in
-                [Yy]* ) break;;
-                [Nn]* ) exit;
+case $rsn in
+                [$txt_yes]* ) break;;
+                [$txt_no]* ) exit;
         esac
 done
 shutdown -r now
