@@ -6,7 +6,7 @@ testing and work
  
  English log file http://pastebin.com/mTFqBuHL
  
- ENglish anaconda http://pastebin.com/vmfEBn5t
+ English anaconda http://pastebin.com/vmfEBn5t
  
  Fédora 17 64 bit minimal tester et foncielle
  
@@ -14,7 +14,15 @@ testing and work
  
  anaconda http://pastebin.com/C5dDF843
  
- Fédora 17 32 bit minimal work log file http://pastebin.com/CXW93zj4
+ Fédora 17 32 bit minimal work 
+ 
+ French log file http://pastebin.com/uCXj3JdZ
+ 
+ French anaconda http://pastebin.com/KJ1r5knH
+ 
+ fichier de log http://pastebin.com/KJ1r5knH
+ 
+ anaconda http://pastebin.com/KJ1r5knH
  
 For testing the installer install Fédora Minimal and enter command
 
