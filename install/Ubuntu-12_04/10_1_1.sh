@@ -90,7 +90,13 @@ passwordgen() {
 # Display the 'welcome' splash/user warning info..
 echo -e '*****************************************************************'
 echo -e "$txt_gpl1 Ubuntu 12.04"
-echo -e "$txt_gpl"
+echo -e "$txt_gpl2"
+echo -e "$txt_gpl3"
+echo -e "$txt_gpl4"
+echo -e "$txt_gpl5"
+echo -e "$txt_gpl6"
+echo -e "$txt_gpl7"
+echo -e "$txt_gpl8"
 echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
