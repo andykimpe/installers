@@ -18,6 +18,7 @@ txt_upgrade7="S'il vous plaît lire et noter les erreurs de mise à jour et les 
 txt_upgrade8="Redémarrez votre serveur maintenant pour compléter la mise à jour (o/n) ? "
 txt_yes="Oo"
 txt_no="Nn"
+txt_premove="SVP suprimer"
 txt_gpl1=" Bienvenue sur l installateur officiel de ZPaneX pour"
 txt_gpl=' SVP assurez-vous que votre fournisseur de VPS na pas pré-installé \n'
 txt_gpl=$txt_gpl' les paquets requis par ZPanelX. \n\n'
