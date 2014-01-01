@@ -1,4 +1,6 @@
 #!/bin/bash
+# zpanel installer tranlation french language
+# installateur zpanel traduction française
 txt_osdetect="Detection"
 txt_installroot="installation échoué! Pour installer, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
 txt_upgraderoot="La mise à jour a échoué! Pour mettre à jour, vous devez être connecté en tant que 'root', s'il vous plaît essayer à nouveau"
