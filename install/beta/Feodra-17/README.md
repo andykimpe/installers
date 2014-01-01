@@ -4,9 +4,9 @@ ZPanel Installers Fédora
 testing and work
  Fédora 17 64 bit minimal work
  
- French log file http://pastebin.com/7zUxfadz
+ English log file http://pastebin.com/mTFqBuHL
  
- French anaconda http://pastebin.com/C5dDF843
+ ENglish anaconda http://pastebin.com/vmfEBn5t
  
  Fédora 17 64 bit minimal tester et foncielle
  
