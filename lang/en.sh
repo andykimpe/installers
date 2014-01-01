@@ -1,4 +1,5 @@
 #!/bin/bash
+# zpanel installer originale English Language
 txt_osdetect="Detected"
 txt_installroot="Installed failed! To install you must be logged in as 'root', please try again"
 txt_upgraderoot="Upgrade failed! To upgrade you must be logged in as 'root', please try again"
