@@ -73,9 +73,9 @@ fi
 networkmanagergome=$(rpm -q --queryformat '%{NAME}\n' NetworkManager-gnome)
 
 if [ "$networkmanagergome" = "NetworkManager-gnome" ] ; then
-echo "Please remove NetworkManager-gnome"
-echo "reconfigure ifcfg files in /etc/sysconfig/network-scripts"
-echo "and restart the installer"
+echo "$txt_premove NetworkManager-gnome"
+echo "$txt_reconfigureifcfg"
+echo "$txt_restartinstaller"
   exit 1;
 fi
 
