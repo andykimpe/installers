@@ -93,7 +93,6 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-# Display the 'welcome' splash/user warning info..
 echo -e '*****************************************************************'
 echo -e "$gpl1 Debian 7"
 echo -e "$gpl"
@@ -105,10 +104,10 @@ publicip=`wget -qO- http://api.zpanelcp.com/ip.txt`
 
 # Lets check that the user wants to continue first as obviously otherwise we'll be removing AppArmor for no reason.
 while true; do
-read -e -p "Would you like to continue (y/n)? " yn
+read -e -p "$txt_installcontinue" yn
     case $yn in
-                [Yy]* ) break;;
-                [Nn]* ) exit;
+                [$txt_yes]* ) break;;
+                [$txt_no]* ) exit;
         esac
 done
 
@@ -116,13 +115,13 @@ done
 [ -f /etc/init.d/apparmor ]
 if [ $? = "0" ]; then
 echo -e ""
-    echo -e "Disabling and removing AppArmor, please wait..."
+    echo -e "$txt_apparmor"
     /etc/init.d/apparmor stop &> /dev/null
         update-rc.d -f apparmor remove &> /dev/null
         apt-get -y remove apparmor &> /dev/null
         mv /etc/init.d/apparmor /etc/init.d/apparmpr.removed &> /dev/null
         ##after removing AppArmor reboot is not obligatory
-        echo -e "Please restart the server and run the installer again. AppArmor has been removed."
+        #echo -e "Please restart the server and run the installer again. AppArmor has been removed."
         #exit
 fi
 
@@ -136,25 +135,25 @@ while true; do
         #read -e -p "Enter your timezone: " -i "Europe/London" tz
         dpkg-reconfigure tzdata &>/dev/tty
         tz=`cat /etc/timezone` 
-        read -e -p "Enter the FQDN of the server (example: zpanel.yourdomain.com): " -i $fqdn fqdn &>/dev/tty
-        read -e -p "Enter the public (external) server IP: " -i $publicip publicip &>/dev/tty
-        read -e -p "Enter your Email address" email &>/dev/tty
-    read -e -p "ZPanel is now ready to install, do you wish to continue (y/n)" yn
+        read -e -p "$txt_enterfqdn : " -i $fqdn fqdn &>/dev/tty
+        read -e -p "$txt_enterip : " -i $publicip publicip &>/dev/tty
+        read -e -p "$txt_email :" email &>/dev/tty
+    read -e -p "$txt_installok" yn
     case $yn in
-        [Yy]* ) break;;
-        [Nn]* ) exit;
+        [$txt_yes]* ) break;;
+        [$txt_no]* ) exit;
     esac
 done
 
 # Start log creation.
 echo -e ""
-echo -e "# Generating installation log and debug info..."
+echo -e "# $txt_logdebug"
 uname -a
 echo -e ""
 dpkg --get-selections
 
 # We need to update the enabled Aptitude repositories
-echo -ne "\nUpdating Aptitude Repos: " >/dev/tty
+echo -ne "\n$txt_aptitude: "
 #if grep -Fxq "deb-src" /etc/apt/sources.list
 #then
 # echo "sources list up-to-date"
@@ -185,7 +184,7 @@ apt-get -yqq update &>/dev/null
 apt-get -y install sudo wget vim make zip unzip git debconf-utils
 
 # We now clone the ZPX software from GitHub
-echo "Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
+echo "$txt_downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
 git checkout $ZPX_VERSION
@@ -241,7 +240,7 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 service mysql start
 mysqladmin -u root password $password
 until mysql -u root -p$password -e ";" > /dev/null 2>&1 ; do
-read -s -p "Enter Your current root Password of mysql : " password
+read -s -p "$txt_mysqlpassworderror : " password
 done
 mysql -u root -p$password -e "DROP DATABASE test";
 mysql -u root -p$password -e "DELETE FROM mysql.user WHERE User='root' AND Host != 'localhost'";
@@ -266,12 +265,12 @@ sed -i "/ssl-key=/a \secure-file-priv = /var/tmp" /etc/mysql/my.cnf
 /etc/zpanel/panel/bin/setso --set apache_changed "true"
 
 # We'll store the passwords so that users can review them later if required.
-touch /root/passwords.txt;
-echo "zadmin Password: $zadminNewPass" >> /root/passwords.txt;
-echo "MySQL Root Password: $password" >> /root/passwords.txt
-echo "MySQL Postfix Password: $postfixpassword" >> /root/passwords.txt
-echo "IP Address: $publicip" >> /root/passwords.txt
-echo "Panel Domain: $fqdn" >> /root/passwords.txt
+touch /root/"$txt_passwords".txt;
+echo "$txt_zadminpassword : $zadminNewPass" >> /root/"$txt_passwords"
+echo "$txt_mysqlrootpassword : $password" >> /root/"$txt_passwords"
+echo "$txt_mysqlpostfixpassword : $postfixpassword" >> /root/"$txt_passwords"
+echo "$txt_ipaddress : $publicip" >> /root/"$txt_passwords"
+echo "$txt_paneldomain : $fqdn" >> /root/"$txt_passwords"
 
 # Postfix specific installation tasks...
 mkdir /var/zpanel/vmail
@@ -408,28 +407,28 @@ rm -rf zp_install_cache/ zpanelx/
 
 # Advise the user that ZPanel is now installed and accessible.
 echo -e "##############################################################" &>/dev/tty
-echo -e "# Congratulations ZpanelX has now been installed on your #" &>/dev/tty
-echo -e "# server. Please review the log file left in /root/ for #" &>/dev/tty
-echo -e "# any errors encountered during installation. #" &>/dev/tty
+echo -e "# $txt_finishinstall1 #" &>/dev/tty
+echo -e "# $txt_finishinstall2 #" &>/dev/tty
+echo -e "# $txt_finishinstall3 #" &>/dev/tty
 echo -e "# #" &>/dev/tty
-echo -e "# Save the following information somewhere safe: #" &>/dev/tty
-echo -e "# MySQL Root Password : $password" &>/dev/tty
-echo -e "# MySQL Postfix Password : $postfixpassword" &>/dev/tty
-echo -e "# ZPanelX Username : zadmin #" &>/dev/tty
-echo -e "# ZPanelX Password : $zadminNewPass" &>/dev/tty
+echo -e "# $txt_finishinstall4 #" &>/dev/tty
+echo -e "# $txt_mysqlrootpassword : $password" &>/dev/tty
+echo -e "# $txt_mysqlpostfixpassword : $postfixpassword" &>/dev/tty
+echo -e "# $txt_finishinstall5 : zadmin #" &>/dev/tty
+echo -e "# $txt_finishinstall6 : $zadminNewPass" &>/dev/tty
 echo -e "# #" &>/dev/tty
-echo -e "# ZPanelX Web login can be accessed using your server IP #" &>/dev/tty
-echo -e "# inside your web browser. #" &>/dev/tty
+echo -e "# $txt_finishinstall7 #" &>/dev/tty
+echo -e "# $txt_finishinstall8 #" &>/dev/tty
 echo -e "# #" &>/dev/tty
 echo -e "##############################################################" &>/dev/tty
 echo -e "" &>/dev/tty
 
 # We now request that the user restarts their server...
-read -e -p "Restart your server now to complete the install (y/n)? " rsn
+read -e -p "$txt_finishinstall9" rsn
 while true; do
         case $rsn in
-                [Yy]* ) break;;
-                [Nn]* ) exit;
+                [$txt_yes]* ) break;;
+                [$txt_no]* ) exit;
         esac
 done
 shutdown -r now
