@@ -261,7 +261,7 @@ chmod +s /etc/zpanel/panel/bin/zsudo
 
 # MySQL specific installation tasks...
 service mysqld start
-mysqladmin -u root password "$password"
+mysqladmin -u root password "$password" > /dev/null 2>&1
 until mysql -u root -p$password -e ";" > /dev/null 2>&1 ; do
 read -s -p "$txt_mysqlpassworderror : " password
 done
