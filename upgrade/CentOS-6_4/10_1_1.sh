@@ -101,18 +101,22 @@ done
 # Now we'll ask upgrade specific automatic detection...
 if [ "$ZPX_VERSION_ACTUAL" = "10.0.0" ] ; then
 upgradeto=10-0-1
+ZPX_VERSIONGIT=10.0.1
 fi
 
 if [ "$ZPX_VERSION_ACTUAL" = "10.0.1" ] ; then
 upgradeto=10-0-2
+ZPX_VERSIONGIT=10.0.2
 fi
 
 if [ "$ZPX_VERSION_ACTUAL" = "10.0.2" ] ; then
 upgradeto=10-1-0
+ZPX_VERSIONGIT=10.1.0
 fi
 
 if [ "$ZPX_VERSION_ACTUAL" = "10.1.0" ] ; then
 upgradeto=10-1-1
+ZPX_VERSIONGIT=10.1.1
 fi
 
 #echo -e "Please enter the version of which you'd like to upgrade ZPanel to, for example 10-1-1"
@@ -133,7 +137,7 @@ done
 echo "$txt_downloadzp"
 git clone https://github.com/bobsta63/zpanelx.git
 cd zpanelx/
-git checkout $ZPX_VERSION
+git checkout $ZPX_VERSIONGIT
 mkdir ../zp_install_cache/
 git checkout-index -a -f --prefix=../zp_install_cache/
 cd ../zp_install_cache/
