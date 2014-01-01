@@ -43,7 +43,7 @@ source $ZPXISOLANGUAGE.sh
 
 
 if [ $UID -ne 0 ]; then
-    echo -e "$upgraderoot"
+    echo -e "$txt_upgraderoot"
     exit 1;
 fi
 
@@ -56,16 +56,16 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo "$osdetect : $OS  $VER  $BITS"
+echo "$txt_osdetect : $OS  $VER  $BITS"
 if [ "$OS" = "Ubuntu" ] && [ "$VER" = "12.04" ]; then
   echo "Ok."
 else
-  echo -e "$upgradesyserror Ubuntu 12.04."
+  echo -e "$txt_upgradesyserror Ubuntu 12.04."
   exit 1;
 fi
 
 if [ "$ZPX_VERSION" = "$ZPX_VERSION_ACTUAL" ] ; then
-echo -e "$errorzpversion"
+echo -e "$txt_errorzpversion"
 fi
 
 # Set custom logging methods so we create a log file in the current working directory.
