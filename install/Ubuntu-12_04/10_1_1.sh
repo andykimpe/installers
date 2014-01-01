@@ -42,13 +42,13 @@ source $ZPXISOLANGUAGE.sh
 
 # First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
-    echo "$installroot"
+    echo "$txt_installroot"
     exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-    echo "$panel"
+    echo "$txt_panel"
     exit
 fi
 
@@ -61,11 +61,11 @@ else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
-echo "$osdetect : $OS  $VER  $BITS"
+echo "$txt_osdetect : $OS  $VER  $BITS"
 if [ "$OS" = "Ubuntu" ] && [ "$VER" = "12.04" ]; then
   echo "Ok."
 else
-  echo "$installsyserror Ubuntu 12.04."
+  echo "$txt_installsyserror Ubuntu 12.04."
   exit 1;
 fi
 
@@ -87,8 +87,8 @@ passwordgen() {
 
 # Display the 'welcome' splash/user warning info..
 echo -e '*****************************************************************'
-echo -e "$gpl1 Ubuntu 12.04"
-echo -e "$gpl"
+echo -e "$txt_gpl1 Ubuntu 12.04"
+echo -e "$txt_gpl"
 echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
