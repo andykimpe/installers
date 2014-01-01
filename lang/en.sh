@@ -28,6 +28,7 @@ txt_gpl=$txt_gpl' If you selected additional options during the your system \n'
 txt_gpl=$txt_gpl' install please consider reinstalling without them. \n'
 txt_errorzpversion="your version of ZPanel already updated"
 txt_installcontinue="Would you like to continue (y/n)?"
+txt_apparmor="Disabling and removing AppArmor, please wait..."
 txt_logdebug="Generating installation log and debug info..."
 txt_downloadzp="Downloading ZPanel, Please wait, this may take several minutes, the installer will continue after this is complete!"
 txt_enterfqdn="Enter the FQDN of the server (example: zpanel.yourdomain.com)"
