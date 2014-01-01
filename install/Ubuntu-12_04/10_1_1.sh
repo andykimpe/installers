@@ -87,6 +87,7 @@ passwordgen() {
 
 # Display the 'welcome' splash/user warning info..
 echo -e '*****************************************************************'
+echo -e "$gpl1 Ubuntu 12.04"
 echo -e "$gpl"
 echo -e '*****************************************************************'
 
