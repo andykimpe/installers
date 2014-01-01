@@ -29,6 +29,7 @@ gpl=$gpl' l installation de votre système \n'
 gpl=$gpl' SVP envisager de réinstaller sans ces options. \n'
 txt_errorzpversion="Votre version de ZPanel est déjà à jour."
 txt_installcontinue="Voulez-vous continuer (o/n)?"
+txt_apparmor="Désactivation et supression d AppArmor, patientez SVP ..."
 txt_logdebug="Génération journal d'installation et des informations de débogage ..."
 txt_downloadzp="Téléchargement de ZPanel, SVP patientez, cela peut prendre plusieurs minutes, le programme d'installation continuera une fois que cette opération sera terminée!"
 txt_enterfqdn="Entrez le nom de domaine complet du serveur (example: zpanel.votredomaine.com)"
