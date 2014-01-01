@@ -42,13 +42,15 @@ source $ZPXISOLANGUAGE.sh
 
 # First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
-echo "$installroot"
+echo "$txt_installroot"
     exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-echo "$panel"
+    echo -e "$txt_panel1"
+    echo -e "$txt_panel2"
+    echo -e "$txt_panel3"
     exit
 fi
 
@@ -64,7 +66,7 @@ echo "Detected : $OS $VER $BITS"
 if [ "$OS" = "Fedora" ] && [ "$VER" = "17" ] ; then
 echo "Ok."
 else
-echo "$installsyserror Fedora 17."
+echo "$txt_installsyserror Fedora 17."
   exit 1;
 fi
 
@@ -98,8 +100,8 @@ passwordgen() {
 
 # Display the 'welcome' splash/user warning info..
 echo -e '*****************************************************************'
-echo -e "$gpl1 Fedora 17"
-echo -e "$gpl"
+echo -e "$txt_gpl1 Fedora 17"
+echo -e "$txt_gpl"
 echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
