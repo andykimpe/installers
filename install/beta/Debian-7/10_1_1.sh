@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# OS VERSION: Debian Server 7
+# OS VERSION: Ubuntu Server 12.04.x LTS
 # ARCH: x32_64
 
-ZPX_VERSION=10.1.0
+ZPX_VERSION=10.1.1
 
 # Official ZPanel Automated Installation Script
 # =============================================
@@ -22,18 +22,33 @@ ZPX_VERSION=10.1.0
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
+
+while true; do
+echo "To continue in English, type e"
+echo "Pour continuer en Français, tapez f"
+echo "To Exit / Pour quitter : CTRL-C"
+read -e -p "? " lang
+   case $lang in
+     [e]* ) ZPXISOLANGUAGE=en && break;;
+     [f]* ) ZPXISOLANGUAGE=fr && break;;
+   esac
+done
+
+wget -q https://raw.github.com/zpanel/installers/master/lang/$ZPXISOLANGUAGE.sh -P /root
+chmod +x /root/$ZPXISOLANGUAGE.sh
+source $ZPXISOLANGUAGE.sh
+
+
+
 # First we check if the user is 'root' before allowing installation to commence
 if [ $UID -ne 0 ]; then
-echo "Install failed! To install you must be logged in as 'root', please try again."
+echo "$installroot"
     exit 1
 fi
 
 # Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-echo "You appear to have a control panel already installed on your server; This installer"
-    echo "is designed to install and configure ZPanel on a clean OS installation only!"
-    echo ""
-    echo "Please re-install your OS before attempting to install using this script."
+echo "$panel"
     exit
 fi
 
@@ -42,7 +57,7 @@ if [ -f /usr/bin/apt-get ]; then
 apt-get update &> /dev/null
 apt-get -y install base-files debian-edu-config  &> /dev/null
 else
-echo "Sorry, this installer only supports the installation of ZPanel on Debian 7."
+echo "$installsyserror Debian 7."
   exit 1;
 fi
 BITS=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
@@ -57,7 +72,7 @@ echo "Detected : $OS $VER $BITS"
 if [ "$OS" = "Debian" ] && [ "$VER" = "7" ] ; then
 echo "Ok."
 else
-echo "Sorry, this installer only supports the installation of ZPanel on Debian 7."
+echo "$installsyserror Debian 7."
   exit 1;
 fi
 
@@ -78,23 +93,11 @@ passwordgen() {
 }
 
 # Display the 'welcome' splash/user warning info..
-echo -e ""
-echo -e "##############################################################"
-echo -e "# Welcome to the Official ZPanelX Installer for Debian #"
-echo -e "# Server 7 #"
-echo -e "# #"
-echo -e "# Please make sure your VPS provider hasn't pre-installed #"
-echo -e "# any packages required by ZPanelX. #"
-echo -e "# #"
-echo -e "# If you are installing on a physical machine where the OS #"
-echo -e "# has been installed by yourself please make sure you only #"
-echo -e "# installed Ubuntu Server with no extra packages. #"
-echo -e "# #"
-echo -e "# If you selected additional options during the Ubuntu #"
-echo -e "# install please consider reinstalling without them. #"
-echo -e "# #"
-echo -e "##############################################################"
-echo -e ""
+# Display the 'welcome' splash/user warning info..
+echo -e '*****************************************************************'
+echo -e "$gpl1 Debian 7"
+echo -e "$gpl"
+echo -e '*****************************************************************'
 
 # Set some installation defaults/auto assignments
 fqdn=`/bin/hostname`
