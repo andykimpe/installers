@@ -18,6 +18,7 @@ txt_upgrade7="Please read and note down any update errors and messages below:"
 txt_upgrade8="Restart your server now to complete the upgrade (y/n)? "
 txt_yes="Yy"
 txt_no="Nn"
+txt_premove="Please remove"
 txt_gpl1=" Welcome to the Official ZPanelX Installer for"
 txt_gpl=' Please make sure your VPS provider hasn t pre-installed \n'
 txt_gpl=$txt_gpl' any packages required by ZPanelX. \n\n'
