@@ -129,7 +129,6 @@ while true; do
 		[$txt_no]* ) exit;
 	esac
 done
-exit
     #to remedy some problems of compatibility use of mirror centos.org to all users
     #CentOS-Base.repo
 
