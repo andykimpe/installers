@@ -296,11 +296,11 @@ sed -i "/symbolic-links=/a \secure-file-priv=/var/tmp" /etc/my.cnf
 
 # We'll store the passwords so that users can review them later if required.
 touch /root/"$txt_passwords".txt;
-echo "$txt_zadminpassword : $zadminNewPass" >> /root/"$passwords".txt
-echo "$txt_mysqlrootpassword : $password" >> /root/"$passwords".txt
-echo "$txt_mysqlpostfixpassword : $postfixpassword" >> /root/"$passwords".txt
-echo "$txt_ipaddress : $publicip" >> /root/"$passwords".txt
-echo "$txt_paneldomain : $fqdn" >> /root/"$passwords".txt
+echo "$txt_zadminpassword : $zadminNewPass" >> /root/passwords.txt
+echo "$txt_mysqlrootpassword : $password" >> /root/passwords.txt
+echo "$txt_mysqlpostfixpassword : $postfixpassword" >> /root/passwords.txt
+echo "$txt_ipaddress : $publicip" >> /root/passwords.txt
+echo "$txt_paneldomain : $fqdn" >> /root/passwords.txt
 
 # Postfix specific installation tasks...
 sed -i "s|;date.timezone =|date.timezone = $tz|" /etc/php.ini
